@@ -51,4 +51,43 @@ trait ArrayCastTrait
 
         return $output;
     }
+
+    /**
+     * Returns object converted to array.
+     * @since 1.0.1
+     *
+     * @param array.
+     */
+    public function to_array()
+    {
+        $output = array();
+
+        // Attributes
+        foreach ($this->attributes as $property => $value) {
+            $output[$this->get_alias($property)] = $value;
+        }
+
+        // Meta
+        foreach ($this->meta as $key => $value) {
+            $alias = $this->get_alias('meta_' . $key);
+            if ( $alias !=  'meta_' . $key) {
+                $output[$alias] = $value;
+            }
+        }
+
+        // Functions
+        foreach ($this->aliases as $alias => $property) {
+            if ( preg_match( '/func_/', $property ) ) {
+                $function_name = preg_replace( '/func_/', '', $property );
+                $output[$alias] = $this->$function_name();
+            }
+        }
+
+        // Hidden
+        foreach ( $this->hidden as $key ) {
+            unset( $output[$key] );
+        }
+
+        return $output;
+    }
 }

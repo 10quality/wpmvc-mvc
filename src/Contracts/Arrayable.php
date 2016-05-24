@@ -28,4 +28,12 @@ interface Arrayable
      * @param array.
      */
     public function __sleep();
+
+    /**
+     * Returns object converted to array.
+     * @since 1.0.1
+     *
+     * @param array.
+     */
+    public function __toArray();
 }

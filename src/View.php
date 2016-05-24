@@ -90,7 +90,7 @@ class View
 			header( $header );
 		}
 		if ( is_object( $content )
-			&& property_exists($content, 'to_json')
+			&& method_exists($content, 'to_json')
 		) {
 			echo $content->to_json();
 		} else {

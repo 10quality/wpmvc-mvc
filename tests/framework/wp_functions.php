@@ -14,6 +14,9 @@ require_once __DIR__.'/classes/wp_post.php';
  * @version 1.0.0
  */
 
+if (!defined('ARRAY_A'))
+    define('ARRAY_A', true);
+
 function get_template_directory()
 {
     return __DIR__.'/theme/';
@@ -29,7 +32,7 @@ function get_userdata($id)
     return new WP_User($id);
 }
 
-function get_post($id, $output)
+function get_post($id, $output = ARRAY_A)
 {
     $post = new WP_Post($id);
     return $output === ARRAY_A ? (array)$post : $post;
@@ -43,4 +46,9 @@ function wp_insert_post($args, &$error)
 function wp_delete_post($ID, $force = true)
 {
     return true;
+}
+
+function get_post_meta($ID, $key = '', $row = true)
+{
+    return empty($key) ? [] : '"1"';
 }
