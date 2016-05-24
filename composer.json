@@ -1,12 +1,16 @@
 {
-    "name": "amostajo/lightweight-mvc",
-    "description": "A light weight (small) MVC framework for Wordpress plugins and themes.",
+    "name": "10quality/wpmvc-mvc",
+    "description": "Lightweight MVC for WPMVC (Wordpress MVC framework).",
     "license": "MIT",
     "keywords": ["wordpress","mvc","lightweight","light"],
     "authors": [
         {
             "name": "Alejandro Mostajo",
             "email": "amostajo@gmail.com"
+        },
+        {
+            "name": "10Quality",
+            "email": "info@10quality.com"
         }
     ],
     "require": {
@@ -14,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Amostajo\\LightweightMVC\\": "src"
+            "WPMVC\\MVC\\": "src"
         }
     },
     "minimum-stability": "dev"

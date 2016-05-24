@@ -1,30 +1,34 @@
 <?php
 
-namespace Amostajo\LightweightMVC;
+namespace WPMVC\MVC;
 
 /**
  * Controller base class.
  *
  * @author Alejandro Mostajo
  * @license MIT
- * @package Amostajo\LightweightMVC
+ * @package WPMVC\MVC
+ * @version 1.0.0
  */
 abstract class Controller
 {
 	/**
 	 * Logged user reference.
+ 	 * @since 1.0.0
 	 * @var object
 	 */
 	protected $user;
 
 	/**
 	 * View class object.
+ 	 * @since 1.0.0
 	 * @var object
 	 */
 	protected $view;
 	
 	/**
 	 * Default construct.
+ 	 * @since 1.0.0
 	 *
 	 * @param object $view View class object.
 	 */

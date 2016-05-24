@@ -1,28 +1,30 @@
 <?php
 
-namespace Amostajo\LightweightMVC;
+namespace WPMVC\MVC\Models;
 
-use Amostajo\LightweightMVC\Contracts\Modelable as Modelable;
-use Amostajo\LightweightMVC\Contracts\Findable as Findable;
-use Amostajo\LightweightMVC\Contracts\Metable as Metable;
-use Amostajo\LightweightMVC\Contracts\Parentable as Parentable;
-use Amostajo\LightweightMVC\Contracts\PostCastable as PostCastable;
-use Amostajo\LightweightMVC\Contracts\Arrayable as Arrayable;
-use Amostajo\LightweightMVC\Contracts\JSONable as JSONable;
-use Amostajo\LightweightMVC\Contracts\Stringable as Stringable;
-use Amostajo\LightweightMVC\Traits\MetaTrait as MetaTrait;
-use Amostajo\LightweightMVC\Traits\CastTrait as CastTrait;
+use WPMVC\MVC\Contracts\Modelable;
+use WPMVC\MVC\Contracts\Findable;
+use WPMVC\MVC\Contracts\Metable;
+use WPMVC\MVC\Contracts\Parentable;
+use WPMVC\MVC\Contracts\PostCastable;
+use WPMVC\MVC\Contracts\Arrayable;
+use WPMVC\MVC\Contracts\JSONable;
+use WPMVC\MVC\Contracts\Stringable;
+use WPMVC\MVC\Traits\MetaTrait;
+use WPMVC\MVC\Traits\PostCastTrait;
+use WPMVC\MVC\Traits\CastTrait;
 
 /**
- * Abstract Model Class.
+ * Abstract Post Model Class.
  *
  * @author Alejandro Mostajo
  * @license MIT
- * @package Amostajo\LightweightMVC
+ * @package WPMVC\MVC
+ * @version 1.0.0
  */
-abstract class Model implements Modelable, Findable, Metable, Parentable, PostCastable, Arrayable, JSONable, Stringable
+abstract class PostModel implements Modelable, Findable, Metable, Parentable, PostCastable, Arrayable, JSONable, Stringable
 {
-	use MetaTrait, CastTrait;
+	use MetaTrait, PostCastTrait, CastTrait;
 
 	/**
 	 * Post type.
@@ -101,7 +103,6 @@ abstract class Model implements Modelable, Findable, Metable, Parentable, PostCa
 			$this->attributes['ID'] = $id;
 
 			$this->save_meta_all();
-
 		}
 
 		return $error === false ? true : $error;
@@ -171,7 +172,6 @@ abstract class Model implements Modelable, Findable, Metable, Parentable, PostCa
 					$content = \apply_filters( 'the_content', $this->attributes[$property] );
 					$content = str_replace( ']]>', ']]&gt;', $content );
 					return $content;
-
 			}
 
 		}
@@ -198,7 +198,6 @@ abstract class Model implements Modelable, Findable, Metable, Parentable, PostCa
 		} else {
 
 			$this->attributes[$property] = $value;
-
 		}
 	}
 
@@ -238,26 +237,6 @@ abstract class Model implements Modelable, Findable, Metable, Parentable, PostCa
 		}
 
 		return $output;
-	}
-
-	/**
-	 * Returns json string.
-	 *
-	 * @param string
-	 */
-	public function to_json()
-	{
-		return json_encode( $this->to_array() );
-	}
-
-	/**
-	 * Returns string.
-	 *
-	 * @param string
-	 */
-	public function __toString()
-	{
-		return $this->to_json();
 	}
 
 	/**

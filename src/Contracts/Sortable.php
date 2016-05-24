@@ -1,18 +1,20 @@
 <?php
 
-namespace Amostajo\LightweightMVC\Contracts;
+namespace WPMVC\MVC\Contracts;
 
 /**
  * Interface contract for sortable collections.
  *
  * @author Alejandro Mostajo
  * @license MIT
- * @package Amostajo\LightweightMVC
+ * @package WPMVC\MVC
+ * @version 1.0.0
  */
 interface Sortable
 {
 	/**
 	 * Sorts results by specific field and direction.
+     * @since 1.0.0
 	 *
 	 * @param string $attribute Attribute to sort by.
 	 * @param string $sort_flag Sort direction.

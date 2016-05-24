@@ -1,18 +1,21 @@
 <?php
 
-namespace Amostajo\LightweightMVC\Contracts;
+namespace WPMVC\MVC\Contracts;
 
 /**
  * Interface contract for findable objects.
  *
  * @author Alejandro Mostajo
  * @license MIT
- * @package Amostajo\LightweightMVC
+ * @package WPMVC\MVC
+ * @version 1.0.0
  */
 interface Findable
 {
 	/**
 	 * Finds record based on an ID.
+     * @since 1.0.0
+     *
 	 * @param mixed $id Record ID.
 	 */
 	public static function find( $id );

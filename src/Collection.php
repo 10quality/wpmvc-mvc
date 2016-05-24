@@ -1,6 +1,6 @@
 <?php
 
-namespace Amostajo\LightweightMVC;
+namespace WPMVC\MVC;
 
 use ArrayObject;
 use Amostajo\LightweightMVC\Contracts\Sortable as Sortable;
@@ -12,12 +12,14 @@ use Amostajo\LightweightMVC\Contracts\Stringable as Stringable;
  *
  * @author Alejandro Mostajo
  * @license MIT
- * @package Amostajo\LightweightMVC
+ * @package WPMVC\MVC
+ * @version 1.0.1
  */
 class Collection extends ArrayObject implements Sortable, JSONable, Stringable
 {
 	/**
 	 * Sorts results by specific field and direction.
+ 	 * @since 1.0.0
 	 *
 	 * @param string $attribute Attribute to sort by.
 	 * @param string $sort_flag Sort direction.
@@ -27,17 +29,12 @@ class Collection extends ArrayObject implements Sortable, JSONable, Stringable
 	public function sort_by( $attribute, $sort_flag = SORT_REGULAR )
 	{
 		$values = array();
-
 		for ( $i = count( $this ) -1; $i >= 0; --$i ) {
 			$values[] = $this[$i]->$attribute;
 		}
-
 		$values = array_unique($values);
-
 		sort( $values, $sort_flag );
-
 		$new = new self();
-
 		foreach ( $values as $value ) {
 			for ( $i = count( $this ) -1; $i >= 0; --$i ) {
 				if ( $value == $this[$i]->$attribute ) {
@@ -45,12 +42,12 @@ class Collection extends ArrayObject implements Sortable, JSONable, Stringable
 				}
 			}
 		}
-
 		return $new;
 	}
 
 	/**
-	 * Groups collection by attribute name,
+	 * Groups collection by attribute name.
+ 	 * @since 1.0.0
 	 *
 	 * @param string $attribute Attribute to group by.
 	 *
@@ -59,33 +56,37 @@ class Collection extends ArrayObject implements Sortable, JSONable, Stringable
 	public function group_by( $attribute )
 	{
 		$new = new self();
-
 		for ( $i = 0; $i < count( $this ); ++$i ) {
-
 			$key = (string)$this[$i]->$attribute; 
-
 			if ( ! isset( $new[$key] ) )
 				$new[$key] = new self();
-
 			$new[$key][] = $this[$i];
-
 		}
-
 		return $new;
 	}
 
 	/**
 	 * Returns json string.
+ 	 * @since 1.0.0
+ 	 * @since 1.0.1 Checks on inner objects for better conversion.
 	 *
 	 * @param string
 	 */
 	public function to_json()
 	{
-		return json_encode( $this );
+		$output = [];
+		// Check on each object
+		foreach ( $this as $key => $value ) {
+			$output[$key] = is_object( $value ) && property_exists( $value, 'to_array' )
+				? $value->to_array()
+				: is_array( $value ) ? $value : (array)$value;
+		}
+		return json_encode( $output );
 	}
 
 	/**
 	 * Returns string.
+ 	 * @since 1.0.0
 	 *
 	 * @param string
 	 */

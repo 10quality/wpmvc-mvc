@@ -1,20 +1,30 @@
 <?php
 
-namespace Amostajo\LightweightMVC\Contracts;
+namespace WPMVC\MVC\Contracts;
 
 /**
  * Interface contract for objects that can cast to arrays.
  *
  * @author Alejandro Mostajo
  * @license MIT
- * @package Amostajo\LightweightMVC
+ * @package WPMVC\MVC
+ * @version 1.0.1
  */
 interface Arrayable
 {
 	/**
 	 * Returns object converted to array.
+     * @since 1.0.0
 	 *
 	 * @param array.
 	 */
 	public function to_array();
+
+    /**
+     * Returns object converted to array for serialization.
+     * @since 1.0.1
+     *
+     * @param array.
+     */
+    public function __sleep();
 }

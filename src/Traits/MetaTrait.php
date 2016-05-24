@@ -1,24 +1,27 @@
 <?php
 
-namespace Amostajo\LightweightMVC\Traits;
+namespace WPMVC\MVC\Traits;
 
 /**
  * Trait related to all meta functionality of a model.
  *
  * @author Alejandro Mostajo
  * @license MIT
- * @package Amostajo\LightweightMVC
+ * @package WPMVC\MVC
+ * @version 1.0.0
  */
 trait MetaTrait
 {
 	/**
 	 * Meta data.
+	 * @since 1.0.0
 	 * @var array
 	 */
 	protected $meta = array();
 
 	/**
 	 * Loads meta values into objet.
+	 * @since 1.0.0
 	 */
 	public function load_meta()
 	{
@@ -45,6 +48,7 @@ trait MetaTrait
 
 	/**
 	 * Returns flag indicating if object has meta key.
+	 * @since 1.0.0
 	 *
 	 * @param string $key Key.
 	 *
@@ -57,6 +61,7 @@ trait MetaTrait
 
 	/**
 	 * Sets meta value.
+	 * @since 1.0.0
 	 *
 	 * @param string $key   Key.
 	 * @param mixed  $value Value.
@@ -68,6 +73,7 @@ trait MetaTrait
 
 	/**
 	 * Gets value from meta.
+	 * @since 1.0.0
 	 *
 	 * @param string $key Key.
 	 *
@@ -79,7 +85,8 @@ trait MetaTrait
 	}
 
 	/**
-	 * Deletes meta..
+	 * Deletes meta.
+	 * @since 1.0.0
 	 *
 	 * @param string $key Key.
 	 */
@@ -94,6 +101,7 @@ trait MetaTrait
 
 	/**
 	 * Either adds or updates a meta.
+	 * @since 1.0.0
 	 *
 	 * @param string $key   Key.
 	 * @param mixed  $value Value.
@@ -116,6 +124,7 @@ trait MetaTrait
 
 	/**
 	 * Saves all meta values.
+	 * @since 1.0.0
 	 */
 	public function save_meta_all()
 	{

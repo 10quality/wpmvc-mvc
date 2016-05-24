@@ -1,23 +1,26 @@
 <?php
 
-namespace Amostajo\LightweightMVC\Contracts;
+namespace WPMVC\MVC\Contracts;
 
 /**
  * Interface contract for objects with Meta.
  *
  * @author Alejandro Mostajo
  * @license MIT
- * @package Amostajo\LightweightMVC
+ * @package WPMVC\MVC
+ * @version 1.0.0
  */
 interface Metable
 {
 	/**
 	 * Loads meta values into objet.
+     * @since 1.0.0
 	 */
 	public function load_meta();
 
 	/**
 	 * Returns flag indicating if object has meta key.
+     * @since 1.0.0
 	 *
 	 * @param string $key Key.
 	 *
@@ -27,6 +30,7 @@ interface Metable
 
 	/**
 	 * Gets value from meta.
+     * @since 1.0.0
 	 *
 	 * @param string $key Key.
 	 *
@@ -36,6 +40,7 @@ interface Metable
 
 	/**
 	 * Sets meta value.
+     * @since 1.0.0
 	 *
 	 * @param string $key   Key.
 	 * @param mixed  $value Value.
@@ -43,7 +48,8 @@ interface Metable
 	public function set_meta( $key, $value );
 
 	/**
-	 * Deletes meta..
+	 * Deletes meta.
+     * @since 1.0.0
 	 *
 	 * @param string $key Key.
 	 */
@@ -51,6 +57,7 @@ interface Metable
 
 	/**
 	 * Either adds or updates a meta.
+     * @since 1.0.0
 	 *
 	 * @param string $key   Key.
 	 * @param mixed  $value Value.
@@ -59,6 +66,7 @@ interface Metable
 
 	/**
 	 * Saves all meta values.
+     * @since 1.0.0
 	 */
 	public function save_meta_all();
 }

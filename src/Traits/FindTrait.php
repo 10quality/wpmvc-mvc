@@ -1,21 +1,23 @@
 <?php
 
-namespace Amostajo\LightweightMVC\Traits;
+namespace WPMVC\MVC\Traits;
 
-use Amostajo\LightweightMVC\Collection as Collection;
+use WPMVC\MVC\Collection as Collection;
 
 /**
  * Trait related to all find functionality of a model.
  *
  * @author Alejandro Mostajo
  * @license MIT
- * @package Amostajo\LightweightMVC
+ * @package WPMVC\MVC
+ * @version 1.0.0
  */
 trait FindTrait
 {
 
 	/**
 	 * Finds record based on an ID.
+	 * @since 1.0.0
 	 *
 	 * @param mixed $id Record ID.
 	 */
@@ -26,6 +28,7 @@ trait FindTrait
 
 	/**
 	 * Returns an array collection of the implemented class based on parent ID.
+	 * @since 1.0.0
 	 *
 	 * @param int $id Parent post ID.
 	 *
