@@ -1,0 +1,1 @@
+<?php echo $arg1 ?><?php echo $arg2 ?>

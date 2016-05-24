@@ -10,4 +10,19 @@ class TestController extends Controller
     {
         return true;
     }
+
+    public function param($param)
+    {
+        return $param;
+    }
+
+    public function view($view)
+    {
+        return $this->view->get($view);
+    }
+
+    public function user_id()
+    {
+        return $this->user->ID;
+    }
 }

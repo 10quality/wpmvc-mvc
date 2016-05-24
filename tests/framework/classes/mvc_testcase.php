@@ -22,7 +22,7 @@ abstract class MVCTestCase extends PHPUnit_Framework_TestCase
 
     /**
      * Constructs a test case with the given name.
-     * @since 1.0
+     * @since 1.0.0
      *
      * @param string $name
      * @param array  $data
@@ -35,6 +35,70 @@ abstract class MVCTestCase extends PHPUnit_Framework_TestCase
             __DIR__ . '/../plugin/views/',
             __DIR__ . '/../plugin/controllers/',
             'WPMVC\Testing'
+        );
+    }
+
+    /**
+     * Asserts the execution of a controller output.
+     * @since 1.0.0
+     *
+     * @param string $call    Controller call.
+     * @param string $output  Controller output.
+     * @param array  $params  Controller parameters.
+     * @param string $message PHPUNIT message.
+     *
+     * @throws PHPUnit_Framework_AssertionFailedError
+     */
+    public function assertControllerCall($call, $output = '', $params = [], $message = 'Failed asserting controller call output.')
+    {
+        ob_start();
+        $this->engine->call($call, $params);
+        self::assertThat(
+            ob_get_clean() == $output,
+            self::isTrue(),
+            $message
+        );
+    }
+
+    /**
+     * Asserts the execution of a controller output.
+     * @since 1.0.0
+     *
+     * @param string $call    Controller call.
+     * @param string $output  Controller output.
+     * @param array  $params  Controller parameters.
+     * @param string $message PHPUNIT message.
+     *
+     * @throws PHPUnit_Framework_AssertionFailedError
+     */
+    public function assertControllerAction($call, $output = '', $params = [], $message = 'Failed asserting controller action return.')
+    {
+        self::assertThat(
+            $this->engine->action($call, $params) == $output,
+            self::isTrue(),
+            $message
+        );
+    }
+
+    /**
+     * Asserts the execution of a controller output.
+     * @since 1.0.0
+     *
+     * @param string $call    Controller call.
+     * @param string $output  Controller output.
+     * @param array  $params  Controller parameters.
+     * @param string $message PHPUNIT message.
+     *
+     * @throws PHPUnit_Framework_AssertionFailedError
+     */
+    public function assertViewOutput($view, $output = '', $params = [], $message = 'Failed asserting view output.')
+    {
+        ob_start();
+        $this->engine->view->show($view, $params);
+        self::assertThat(
+            ob_get_clean() == $output,
+            self::isTrue(),
+            $message
         );
     }
 }

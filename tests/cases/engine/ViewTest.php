@@ -11,10 +11,18 @@
 class ViewTest extends MVCTestCase
 {
     /**
-     * Tests engine controller creation.
+     * Tests view located in theme folder.
      */
     public function testThemeView()
     {
-        $this->assertEquals($this->engine->view->get('theme'), 'test theme view');
+        $this->assertViewOutput('theme', 'test theme view');
+    }
+
+    /**
+     * Tests view parameters.
+     */
+    public function testViewParameters()
+    {
+        $this->assertViewOutput('params', '21', ['arg1' => 2, 'arg2' => 1]);
     }
 }
