@@ -5,7 +5,8 @@ namespace WPMVC\MVC\Contracts;
 /**
  * Interface contract for object that can be casted to or from WP_Post.
  *
- * @author Alejandro Mostajo
+ * @author Alejandro Mostajo <http://about.me/amostajo>
+ * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
  * @version 1.0.0

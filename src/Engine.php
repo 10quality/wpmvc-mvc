@@ -3,9 +3,10 @@
 namespace WPMVC\MVC;
 
 /**
- * MVC mini engine.
+ * MVC engine.
  *
- * @author Alejandro Mostajo
+ * @author Alejandro Mostajo <http://about.me/amostajo>
+ * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
  * @version 1.0.3

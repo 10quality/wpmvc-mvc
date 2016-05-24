@@ -6,7 +6,8 @@ namespace WPMVC\MVC;
  * View class.
  * Extends templating functionality to apply a mini MVC engine.
  *
- * @author Alejandro Mostajo
+ * @author Alejandro Mostajo <http://about.me/amostajo>
+ * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
  * @version 1.0.1
