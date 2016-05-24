@@ -56,7 +56,7 @@ abstract class OptionModel implements Findable, Modelable, Arrayable, JSONable, 
      * Default constructor.
      * @since 1.0.0
      */
-    public function __construct()
+    public function __construct($id = null)
     {
         if ( isset( $this->id ) && ! empty( $this->id )  )
             $this->load($this->id);

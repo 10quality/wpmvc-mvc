@@ -19,5 +19,5 @@ interface Findable
      *
 	 * @param mixed $id Record ID.
 	 */
-	public static function find( $id );
+	public static function find( $id = 0 );
 }

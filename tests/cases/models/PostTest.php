@@ -48,6 +48,12 @@ class PostTest extends MVCTestCase
         $this->assertEquals($post->slug, 'hello-world');
 
         $this->assertEquals($post->name, 'hello-worldhello-world');
+
+        $post->slug = 'test';
+
+        $this->assertEquals($post->slug, 'test');
+
+        $this->assertEquals($post->post_name, 'test');
     }
 
     /**

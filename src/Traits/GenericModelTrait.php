@@ -93,4 +93,15 @@ trait GenericModelTrait
 
         return $output;
     }
+
+    /**
+     * Returns object converted to array.
+     * @since 1.0.0
+     *
+     * @param array.
+     */
+    public function __toArray()
+    {
+        return $this->to_array();
+    }
 }

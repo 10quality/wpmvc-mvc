@@ -82,3 +82,20 @@ function is_wp_error($error)
 {
     return is_a($error, 'WP_Error');
 }
+
+function get_option($key)
+{
+    if ($key == 'model_test')
+        return '{"ID":"test","a":"A value","b":"B value","isSetup":false}';
+    return;
+}
+
+function update_option($key, $value)
+{
+    return true;
+}
+
+function delete_option($key)
+{
+    return true;
+}

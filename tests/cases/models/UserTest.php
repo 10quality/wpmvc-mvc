@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests MVC post model.
+ * Tests MVC user model.
  *
  * @author Alejandro Mostajo <http://about.me/amostajo>
  * @copyright 10Quality <http://www.10quality.com>
@@ -46,6 +46,12 @@ class UserTest extends MVCTestCase
         $this->assertEquals($user->firstname, 'John');
 
         $this->assertEquals($user->fullname, 'John Doe');
+
+        $user->firstname = 'test';
+
+        $this->assertEquals($user->firstname, 'test');
+
+        $this->assertEquals($user->first_name, 'test');
     }
 
     /**
