@@ -13,18 +13,22 @@ use WPMVC\MVC\Contracts\Stringable;
 use WPMVC\MVC\Traits\MetaTrait;
 use WPMVC\MVC\Traits\PostCastTrait;
 use WPMVC\MVC\Traits\CastTrait;
+use WPMVC\MVC\Traits\AliasTrait;
+use WPMVC\MVC\Traits\SetterTrait;
+use WPMVC\MVC\Traits\ArrayCastTrait;
 
 /**
  * Abstract Post Model Class.
  *
- * @author Alejandro Mostajo
+ * @author Alejandro Mostajo <http://about.me/amostajo>
+ * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
  * @version 1.0.0
  */
 abstract class PostModel implements Modelable, Findable, Metable, Parentable, PostCastable, Arrayable, JSONable, Stringable
 {
-	use MetaTrait, PostCastTrait, CastTrait;
+	use MetaTrait, PostCastTrait, CastTrait, AliasTrait, SetterTrait, ArrayCastTrait;
 
 	/**
 	 * Post type.
@@ -49,12 +53,6 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
 	 * @var array
 	 */
 	protected $attributes = array();
-
-	/**
-	 * Field aliases.
-	 * @var array
-	 */
-	protected $aliases = array();
 
 	/**
 	 * Attributes and aliases hidden from print.
@@ -180,66 +178,6 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
 	}
 
 	/**
-	 * Setter function.
-	 *
-	 * @param string $property
-	 * @param mixed  $value
-	 *
-	 * @return object
-	 */
-	public function __set( $property, $value )
-	{
-		$property = $this->get_alias_property( $property );
-
-		if ( preg_match( '/meta_/', $property ) ) {
-
-			return $this->set_meta( preg_replace( '/meta_/', '', $property ), $value );
-
-		} else {
-
-			$this->attributes[$property] = $value;
-		}
-	}
-
-	/**
-	 * Returns object converted to array.
-	 *
-	 * @param array.
-	 */
-	public function to_array()
-	{
-		$output = array();
-
-		// Attributes
-		foreach ($this->attributes as $property => $value) {
-			$output[$this->get_alias($property)] = $value;
-		}
-
-		// Meta
-		foreach ($this->meta as $key => $value) {
-			$alias = $this->get_alias('meta_' . $key);
-			if ( $alias !=  'meta_' . $key) {
-				$output[$alias] = $value;
-			}
-		}
-
-		// Functions
-		foreach ($this->aliases as $alias => $property) {
-			if ( preg_match( '/func_/', $property ) ) {
-				$function_name = preg_replace( '/func_/', '', $property );
-				$output[$alias] = $this->$function_name();
-			}
-		}
-
-		// Hidden
-		foreach ( $this->hidden as $key ) {
-			unset( $output[$key] );
-		}
-
-		return $output;
-	}
-
-	/**
 	 * Fills default when about to create object
 	 */
 	private function fill_defaults()
@@ -249,37 +187,6 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
 			$this->attributes['post_type'] = $this->type;
 
 			$this->attributes['post_status'] = $this->status;
-
 		}
-	}
-
-	/**
-	 * Returns property mapped to alias.
-	 *
-	 * @param string $alias Alias.
-	 *
-	 * @return string
-	 */
-	private function get_alias_property( $alias )
-	{
-		if ( array_key_exists( $alias, $this->aliases ) )
-			return $this->aliases[$alias];
-
-		return $alias;
-	}
-
-	/**
-	 * Returns alias name mapped to property.
-	 *
-	 * @param string $property Property.
-	 *
-	 * @return string
-	 */
-	private function get_alias( $property )
-	{
-		if ( in_array( $property, $this->aliases ) )
-			return array_search( $property, $this->aliases );
-
-		return $property;
 	}
 }

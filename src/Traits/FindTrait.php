@@ -7,7 +7,8 @@ use WPMVC\MVC\Collection as Collection;
 /**
  * Trait related to all find functionality of a model.
  *
- * @author Alejandro Mostajo
+ * @author Alejandro Mostajo <http://about.me/amostajo>
+ * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
  * @version 1.0.0

@@ -3,12 +3,12 @@
 namespace WPMVC\MVC;
 
 use ArrayObject;
-use Amostajo\LightweightMVC\Contracts\Sortable as Sortable;
-use Amostajo\LightweightMVC\Contracts\JSONable as JSONable;
-use Amostajo\LightweightMVC\Contracts\Stringable as Stringable;
+use WPMVC\MVC\Contracts\Sortable;
+use WPMVC\MVC\Contracts\JSONable;
+use WPMVC\MVC\Contracts\Stringable;
 
 /**
- * Holds a colleciton of model results.
+ * Holds a collection of model results.
  *
  * @author Alejandro Mostajo
  * @license MIT

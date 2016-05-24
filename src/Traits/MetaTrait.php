@@ -5,7 +5,8 @@ namespace WPMVC\MVC\Traits;
 /**
  * Trait related to all meta functionality of a model.
  *
- * @author Alejandro Mostajo
+ * @author Alejandro Mostajo <http://about.me/amostajo>
+ * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
  * @version 1.0.0
