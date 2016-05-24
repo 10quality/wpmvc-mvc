@@ -32,6 +32,11 @@ function get_userdata($id)
     return new WP_User($id);
 }
 
+function get_user_by($key, $id)
+{
+    return new WP_User($id);
+}
+
 function get_post($id, $output = ARRAY_A)
 {
     $post = new WP_Post($id);
@@ -51,4 +56,29 @@ function wp_delete_post($ID, $force = true)
 function get_post_meta($ID, $key = '', $row = true)
 {
     return empty($key) ? [] : '"1"';
+}
+
+function get_user_meta($ID, $key = '', $row = true)
+{
+    return empty($key) ? [] : '"1"';
+}
+
+function delete_user_meta($ID, $key)
+{
+    return true;
+}
+
+function update_user_meta($ID, $key, $value)
+{
+    return true;
+}
+
+function wp_insert_user($data)
+{
+    return true;
+}
+
+function is_wp_error($error)
+{
+    return is_a($error, 'WP_Error');
 }

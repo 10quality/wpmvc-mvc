@@ -23,25 +23,26 @@ trait GetterTrait
      */
     public function &__get( $property )
     {
+        $value = null;
         $property = $this->get_alias_property( $property );
 
         if ( preg_match( '/meta_/', $property ) ) {
-            return $this->get_meta( preg_replace( '/meta_/', '', $property ) );
+            $value = $this->get_meta( preg_replace( '/meta_/', '', $property ) );
         }
 
         if ( preg_match( '/func_/', $property ) ) {
             $function_name = preg_replace( '/func_/', '', $property );
-            return $this->$function_name();
+            $value = $this->$function_name();
         }
 
         if ( array_key_exists( $property, $this->attributes ) ) {
-            return $this->attributes[$property];
+            $value = $this->attributes[$property];
         }
 
         if ( is_object( $this->data ) && property_exists( $this->data, $property ) ) {
-            return $this->data->$property;
+            $value = $this->data->$property;
         }
 
-        return null;
+        return $value;
     }
 }

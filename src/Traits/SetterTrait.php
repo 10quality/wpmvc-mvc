@@ -28,10 +28,6 @@ trait SetterTrait
 
         if ( preg_match( '/meta_/', $property ) ) {
             return $this->set_meta( preg_replace( '/meta_/', '', $property ), $value );
-        } else if ( property_exists( $this, 'data' )
-            && property_exists( $this->data, $property )
-        ) {
-            $this->data->$property = $value;
         } else {
             $this->attributes[$property] = $value;
         }

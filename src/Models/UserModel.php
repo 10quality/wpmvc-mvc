@@ -2,6 +2,7 @@
 
 namespace WPMVC\MVC\Models;
 
+use ReflectionClass;
 use WPMVC\MVC\Contracts\Modelable;
 use WPMVC\MVC\Contracts\Findable;
 use WPMVC\MVC\Contracts\Arrayable;
@@ -29,35 +30,35 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
 
     /**
      * Attributes.
-     * @since 1.0
+     * @since 1.0.0
      * @var array
      */
     protected $attributes = [];
 
     /**
      * Meta data.
-     * @since 1.0
+     * @since 1.0.0
      * @var array
      */
     protected $meta = [];
 
     /**
      * Hidden properties.
-     * @since 1.0
+     * @since 1.0.0
      * @var array
      */
     protected $hidden = [];
 
     /**
      * User WP data
-     * @since 1.0
+     * @since 1.0.0
      * @var mixed
      */
     protected $data = null;
 
     /**
      * Default constructor.
-     * @since 1.0
+     * @since 1.0.0
      *
      * @param int $id User ID.
      */
@@ -69,25 +70,8 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
     }
 
     /**
-     * Static constructor.
-     * Returns a user by ID.
-     * @since 1.0
-     *
-     * @param int $id User ID.
-     *
-     * @return mixed
-     */
-    public static function find( $id = null )
-    {
-        $user = new self( $id );
-        if ( $user )
-            return $user;
-        return;
-    }
-
-    /**
      * Returns current user.
-     * @since 1.0
+     * @since 1.0.0
      *
      * @return mixed
      */
@@ -98,21 +82,21 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
 
     /**
      * Loads user data.
-     * @since 1.0
+     * @since 1.0.0
      *
      * @param int $id User ID.
      */
     public function load( $id )
     {
         if ( ! empty( $id ) ) {
-            $this->data = get_user_by( 'id', $id );
+            $this->attributes = (array)get_user_by( 'id', $id );
             $this->load_meta();
         }
     }
 
     /**
      * Deletes user.
-     * @since 1.0
+     * @since 1.0.0
      */
     public function delete()
     {
@@ -122,19 +106,23 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
     /**
      * Saves user.
      * Returns success flag.
-     * @since 1.0
+     * @since 1.0.0
      *
      * @return bool
      */
     public function save()
     {
+        $id = wp_insert_user( $this->attributes );
+        if ( is_wp_error( $id ) )
+            return false;
+        $this->ID = $id;
         $this->save_meta_all();
         return true;
     }
 
     /**
      * Loads user meta data.
-     * @since 1.0
+     * @since 1.0.0
      */
     public function load_meta()
     {
@@ -157,7 +145,7 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
 
     /**
      * Returns flag indicating if object has meta key.
-     * @since 1.0
+     * @since 1.0.0
      *
      * @param string $key Key.
      *
@@ -170,7 +158,7 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
 
     /**
      * Gets value from meta.
-     * @since 1.0
+     * @since 1.0.0
      *
      * @param string $key Key.
      *
@@ -183,7 +171,7 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
 
     /**
      * Sets meta value.
-     * @since 1.0
+     * @since 1.0.0
      *
      * @param string $key   Key.
      * @param mixed  $value Value.
@@ -195,7 +183,7 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
 
     /**
      * Deletes meta.
-     * @since 1.0
+     * @since 1.0.0
      *
      * @param string $key Key.
      */
@@ -210,7 +198,7 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
 
     /**
      * Either adds or updates a meta.
-     * @since 1.0
+     * @since 1.0.0
      *
      * @param string $key   Key.
      * @param mixed  $value Value.
@@ -234,7 +222,7 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
 
     /**
      * Saves all meta values.
-     * @since 1.0
+     * @since 1.0.0
      */
     public function save_meta_all()
     {
