@@ -99,3 +99,39 @@ function delete_option($key)
 {
     return true;
 }
+
+function get_category($ID)
+{
+    $cat = new stdClass;
+    $cat->term_id = $ID;
+    $cat->cat_ID = $ID;
+    $cat->name = 'Category';
+    $cat->slug = 'category';
+    $cat->taxonomy = 'category';
+    return $cat;
+}
+
+function update_term_meta($ID, $key, $value)
+{
+    return true;
+}
+
+function delete_term_meta($ID, $key)
+{
+    return true;
+}
+
+function get_term_meta($ID, $key = '', $row = true)
+{
+    return empty($key) ? [] : '"1"';
+}
+
+function wp_insert_term($name, $tax, $args)
+{
+    return true;
+}
+
+function wp_delete_term($term, $tax)
+{
+    return true;
+}

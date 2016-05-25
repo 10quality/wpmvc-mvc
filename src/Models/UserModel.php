@@ -50,13 +50,6 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
     protected $hidden = [];
 
     /**
-     * User WP data
-     * @since 1.0.0
-     * @var mixed
-     */
-    protected $data = null;
-
-    /**
      * Default constructor.
      * @since 1.0.0
      *

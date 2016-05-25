@@ -39,10 +39,6 @@ trait GetterTrait
             $value = $this->attributes[$property];
         }
 
-        if ( is_object( $this->data ) && property_exists( $this->data, $property ) ) {
-            $value = $this->data->$property;
-        }
-
         return $value;
     }
 }

@@ -26,13 +26,6 @@ use WPMVC\MVC\Traits\ArrayCastTrait;
 abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, Stringable, Arrayable
 {
     use AliasTrait, CastTrait, SetterTrait, GetterTrait, ArrayCastTrait;
-
-    /**
-     * Name of the taxonomy meta table.
-     * @since 1.0.0
-     * @var string
-     */
-    const META_TABLE = 'taxonomymeta';
     
     /**
      * Attributes in model.
@@ -54,13 +47,6 @@ abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, 
     protected $meta = array();
 
     /**
-     * Category WP data
-     * @since 1.0.0
-     * @var mixed
-     */
-    protected $data = null;
-
-    /**
      * Default constructor.
      * @since 1.0.0
      *
@@ -74,23 +60,6 @@ abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, 
     }
 
     /**
-     * Static constructor.
-     * Returns a category by ID.
-     * @since 1.0.0
-     *
-     * @param int $id Category ID.
-     *
-     * @return mixed
-     */
-    public static function find( $id = null )
-    {
-        $obj = new self( $id );
-        if ( $obj )
-            return $obj;
-        return;
-    }
-
-    /**
      * Loads category data.
      * @since 1.0.0
      *
@@ -99,7 +68,7 @@ abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, 
     public function load( $id )
     {
         if ( ! empty( $id ) ) {
-            $this->data = get_category( $id );
+            $this->attributes = (array)get_category( $id );
             $this->load_meta();
         }
     }
@@ -110,7 +79,10 @@ abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, 
      */
     public function delete()
     {
-        // TODO
+        wp_delete_term(
+            $this->name,
+            $this->taxonomy
+        );
     }
 
     /**
@@ -122,6 +94,14 @@ abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, 
      */
     public function save()
     {
+        $id = wp_insert_term(
+            $this->name,
+            $this->taxonomy,
+            $this->attributes
+        );
+        if ( is_wp_error( $id ) )
+            return false;
+        $this->term_id = $id;
         $this->save_meta_all();
         return true;
     }
@@ -147,6 +127,8 @@ abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, 
                         : floatval( $value )
                     );
             }
+        } else {
+            $this->attributes['taxonomy'] = 'category';
         }
     }
 
@@ -216,7 +198,6 @@ abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, 
             $this->set_meta($key, $value);
 
         try {
-
             update_term_meta(
                 $this->term_id,
                 $key,
