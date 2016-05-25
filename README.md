@@ -1,9 +1,9 @@
 # LIGHTWEIGHT MVC (For Wordpress MVC)
 --------------------------------
 
-[![Latest Stable Version](https://poser.pugx.org/amostajo/lightweight-mvc/v/stable)](https://packagist.org/packages/amostajo/lightweight-mvc)
-[![Total Downloads](https://poser.pugx.org/amostajo/lightweight-mvc/downloads)](https://packagist.org/packages/amostajo/lightweight-mvc)
-[![License](https://poser.pugx.org/amostajo/lightweight-mvc/license)](https://packagist.org/packages/amostajo/lightweight-mvc)
+[![Latest Stable Version](https://poser.pugx.org/10quality/wpmvc-mvc/v/stable)](https://packagist.org/packages/10quality/wpmvc-mvc)
+[![Total Downloads](https://poser.pugx.org/10quality/wpmvc-mvc/downloads)](https://packagist.org/packages/10quality/wpmvc-mvc)
+[![License](https://poser.pugx.org/10quality/wpmvc-mvc/license)](https://packagist.org/packages/10quality/wpmvc-mvc)
 
 Forked version for WPMVC.
 
