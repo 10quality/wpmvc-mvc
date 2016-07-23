@@ -13,11 +13,11 @@ namespace WPMVC\MVC\Contracts;
  */
 interface Stringable
 {
-	/**
-	 * Returns string.
+    /**
+     * Returns string.
      * @since 1.0.0
-	 *
-	 * @param string
-	 */
-	public function __toString();
+     *
+     * @param string
+     */
+    public function __toString();
 }

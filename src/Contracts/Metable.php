@@ -13,61 +13,61 @@ namespace WPMVC\MVC\Contracts;
  */
 interface Metable
 {
-	/**
-	 * Loads meta values into objet.
+    /**
+     * Loads meta values into objet.
      * @since 1.0.0
-	 */
-	public function load_meta();
+     */
+    public function load_meta();
 
-	/**
-	 * Returns flag indicating if object has meta key.
+    /**
+     * Returns flag indicating if object has meta key.
      * @since 1.0.0
-	 *
-	 * @param string $key Key.
-	 *
-	 * @return bool
-	 */
-	public function has_meta( $key );
+     *
+     * @param string $key Key.
+     *
+     * @return bool
+     */
+    public function has_meta( $key );
 
-	/**
-	 * Gets value from meta.
+    /**
+     * Gets value from meta.
      * @since 1.0.0
-	 *
-	 * @param string $key Key.
-	 *
-	 * @return mixed.
-	 */
-	public function get_meta( $key );
+     *
+     * @param string $key Key.
+     *
+     * @return mixed.
+     */
+    public function get_meta( $key );
 
-	/**
-	 * Sets meta value.
+    /**
+     * Sets meta value.
      * @since 1.0.0
-	 *
-	 * @param string $key   Key.
-	 * @param mixed  $value Value.
-	 */
-	public function set_meta( $key, $value );
+     *
+     * @param string $key   Key.
+     * @param mixed  $value Value.
+     */
+    public function set_meta( $key, $value );
 
-	/**
-	 * Deletes meta.
+    /**
+     * Deletes meta.
      * @since 1.0.0
-	 *
-	 * @param string $key Key.
-	 */
-	public function delete_meta( $key );
+     *
+     * @param string $key Key.
+     */
+    public function delete_meta( $key );
 
-	/**
-	 * Either adds or updates a meta.
+    /**
+     * Either adds or updates a meta.
      * @since 1.0.0
-	 *
-	 * @param string $key   Key.
-	 * @param mixed  $value Value.
-	 */
-	public function save_meta( $key, $value );
+     *
+     * @param string $key   Key.
+     * @param mixed  $value Value.
+     */
+    public function save_meta( $key, $value );
 
-	/**
-	 * Saves all meta values.
+    /**
+     * Saves all meta values.
      * @since 1.0.0
-	 */
-	public function save_meta_all();
+     */
+    public function save_meta_all();
 }

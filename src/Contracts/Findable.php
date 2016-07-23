@@ -13,11 +13,11 @@ namespace WPMVC\MVC\Contracts;
  */
 interface Findable
 {
-	/**
-	 * Finds record based on an ID.
+    /**
+     * Finds record based on an ID.
      * @since 1.0.0
      *
-	 * @param mixed $id Record ID.
-	 */
-	public static function find( $id = 0 );
+     * @param mixed $id Record ID.
+     */
+    public static function find( $id = 0 );
 }

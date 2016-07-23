@@ -13,25 +13,25 @@ namespace WPMVC\MVC\Contracts;
  */
 interface Modelable
 {
-	/**
-	 * Loads model from db.
+    /**
+     * Loads model from db.
      * @since 1.0.0
-	 */
-	public function load( $id );
+     */
+    public function load( $id );
 
-	/**
-	 * Saves current model in the db.
+    /**
+     * Saves current model in the db.
      * @since 1.0.0
-	 *
-	 * @return mixed.
-	 */
-	public function save();
-	
-	/**
-	 * Deletes current model in the db.
+     *
+     * @return mixed.
+     */
+    public function save();
+    
+    /**
+     * Deletes current model in the db.
      * @since 1.0.0
-	 *
-	 * @return mixed.
-	 */
-	public function delete();
+     *
+     * @return mixed.
+     */
+    public function delete();
 }

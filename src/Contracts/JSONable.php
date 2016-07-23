@@ -13,11 +13,11 @@ namespace WPMVC\MVC\Contracts;
  */
 interface JSONable
 {
-	/**
-	 * Returns json string.
+    /**
+     * Returns json string.
      * @since 1.0.0
-	 *
-	 * @param string
-	 */
-	public function to_json();
+     *
+     * @param string
+     */
+    public function to_json();
 }

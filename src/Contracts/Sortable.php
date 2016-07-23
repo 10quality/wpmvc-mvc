@@ -13,14 +13,14 @@ namespace WPMVC\MVC\Contracts;
  */
 interface Sortable
 {
-	/**
-	 * Sorts results by specific field and direction.
+    /**
+     * Sorts results by specific field and direction.
      * @since 1.0.0
-	 *
-	 * @param string $attribute Attribute to sort by.
-	 * @param string $sort_flag Sort direction.
-	 *
-	 * @return this for chaining
-	 */
-	public function sort_by( $attribute, $sort_flag = SORT_REGULAR );
+     *
+     * @param string $attribute Attribute to sort by.
+     * @param string $sort_flag Sort direction.
+     *
+     * @return this for chaining
+     */
+    public function sort_by( $attribute, $sort_flag = SORT_REGULAR );
 }

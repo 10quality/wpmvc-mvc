@@ -13,13 +13,13 @@ namespace WPMVC\MVC\Contracts;
  */
 interface Arrayable
 {
-	/**
-	 * Returns object converted to array.
+    /**
+     * Returns object converted to array.
      * @since 1.0.0
-	 *
-	 * @param array.
-	 */
-	public function to_array();
+     *
+     * @param array.
+     */
+    public function to_array();
 
     /**
      * Returns object converted to array for serialization.
