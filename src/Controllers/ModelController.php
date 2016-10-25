@@ -65,8 +65,6 @@ class ModelController extends Controller
         $this->on_metabox( $model );
         $model = apply_filters( 'metabox_model', $model );
 
-        wp_nonce_field( '_wpmvc_post', '_wpmvc_nonce' );
-
         return $this->view->get( 'admin.metaboxes.'.$this->object->type.'.meta', [
             'model' => $model,
         ] );
@@ -78,16 +76,14 @@ class ModelController extends Controller
      */
     public function _save( $post_id )
     {
-        $nonce = Request::input( '_wpmvc_nonce', '', true );
-
-        if ( (defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE && !$this->autosave )
-            || empty($nonce) 
-            || ! wp_verify_nonce( $nonce, '_wpmvc_post' ) 
+        if ( defined( 'DOING_AUTOSAVE' )
+            && DOING_AUTOSAVE
+            && !$this->autosave
         ) {
             return;
         }
 
-        $model = call_user_method_array( 'find', $this->object, [$post->ID] );
+        $model = call_user_method_array( 'find', $this->object, [$post_id] );
 
         do_action( 'before_controller_save', $post_id, $model );
 

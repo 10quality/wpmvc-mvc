@@ -24,7 +24,7 @@ use WPMVC\MVC\Traits\ArrayCastTrait;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 1.0.1
+ * @version 1.0.2
  */
 abstract class PostModel implements Modelable, Findable, Metable, Parentable, PostCastable, Arrayable, JSONable, Stringable
 {
@@ -109,6 +109,27 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
      * @var array
      */
     protected $registry_rewrite = [];
+
+    /**
+     * Flag that indicates if model should generate metabox for aliases upon registration.
+     * @since 1.0.2
+     * @var bool
+     */
+    protected $registry_metabox = true;
+
+    /**
+     * Name of the controller used for registration purposes.
+     * @since 1.0.2
+     * @var string
+     */
+    protected $registry_controller;
+
+    /**
+     * Taxonomies to register during autoregistration.
+     * @since 1.0.2
+     * @var array
+     */
+    protected $registry_taxonomies = [];
 
     /**
      * Default constructor.
@@ -222,6 +243,13 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
                 case 'status':
                 case 'meta':
                 case 'aliases':
+                case 'registry':
+                case 'registry_taxonomies':
+                case 'registry_controller':
+                case 'registry_metabox':
+                case 'registry_rewrite':
+                case 'registry_supports':
+                case 'registry_labels':
                     return $this->$property;
 
                 case 'post_content_filtered':
