@@ -65,6 +65,9 @@ class ModelController extends Controller
         $this->on_metabox( $model );
         $model = apply_filters( 'metabox_model', $model );
 
+        // nonce
+        wp_nonce_field( '_wpmvc_post', '_wpmvc_nonce' );
+
         return $this->view->get( 'admin.metaboxes.'.$this->object->type.'.meta', [
             'model' => $model,
         ] );
@@ -88,11 +91,12 @@ class ModelController extends Controller
         do_action( 'before_controller_save', $post_id, $model );
 
         foreach ( $model->aliases as $alias_key => $alias_value ) {
-            if ( !preg_match( '/func\_/', $alias_value ) )
-                $this->$alias_key = apply_filters(
+            if ( !preg_match( '/func\_/', $alias_value ) ) {
+                $model->$alias_key = apply_filters(
                     'save_model_'.$mode->type.'_'.$alias_value,
                     Request::input( $alias_value )
                 );
+            }
         }
 
         $this->on_save( $model );
