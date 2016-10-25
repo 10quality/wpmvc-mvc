@@ -24,7 +24,7 @@ use WPMVC\MVC\Traits\ArrayCastTrait;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 1.0.0
+ * @version 1.0.1
  */
 abstract class PostModel implements Modelable, Findable, Metable, Parentable, PostCastable, Arrayable, JSONable, Stringable
 {
@@ -32,36 +32,87 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
 
     /**
      * Post type.
+     * @since 1.0.0
      * @var string
      */
     protected $type = 'post';
 
     /**
      * Default post status.
+     * @since 1.0.0
      * @var string
      */
     protected $status = 'draft';
 
     /**
      * Posts are moved to trash when on soft delete.
+     * @since 1.0.0
      * @var bool
      */
     protected $forceDelete = false;
 
     /**
      * Attributes in model.
+     * @since 1.0.0
      * @var array
      */
-    protected $attributes = array();
+    protected $attributes = [];
 
     /**
      * Attributes and aliases hidden from print.
+     * @since 1.0.0
      * @var array
      */
-    protected $hidden = array();
+    protected $hidden = [];
+
+    /**
+     * Registry options for during registration.
+     * @since 1.0.1
+     * @var array
+     */
+    protected $registry = [
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'capability_type'    => 'post',
+        'has_archive'        => true,
+        'hierarchical'       => false,
+        'menu_position'      => null,
+    ];
+
+    /**
+     * Labels for during registration.
+     * @since 1.0.1
+     * @var array
+     */
+    protected $registry_labels = [];
+
+    /**
+     * Wordpress support for during registration.
+     * @since 1.0.1
+     * @var array
+     */
+    protected $registry_supports = [
+        'title',
+        'editor',
+        'author',
+        'thumbnail',
+        'excerpt',
+        'comments',
+    ];
+
+    /**
+     * Rewrite rules for during registration.
+     * @since 1.0.1
+     * @var array
+     */
+    protected $registry_rewrite = [];
 
     /**
      * Default constructor.
+     * @since 1.0.0
      */
     public function __construct( $id = 0 )
     {
@@ -71,6 +122,7 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
 
     /**
      * Loads model from db.
+     * @since 1.0.0
      *
      * @param mixed $id Rercord ID.
      */
@@ -83,6 +135,7 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
 
     /**
      * Saves current model in the db.
+     * @since 1.0.0
      *
      * @return mixed.
      */
@@ -108,6 +161,7 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
 
     /**
      * Deletes current model in the db.
+     * @since 1.0.0
      *
      * @return mixed.
      */
@@ -122,6 +176,7 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
 
     /**
      * Returns flag indicating if object is loaded or not.
+     * @since 1.0.0
      *
      * @return bool
      */
@@ -132,6 +187,7 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
 
     /**
      * Getter function.
+     * @since 1.0.0
      *
      * @param string $property
      *
@@ -164,6 +220,8 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
 
                 case 'type':
                 case 'status':
+                case 'meta':
+                case 'aliases':
                     return $this->$property;
 
                 case 'post_content_filtered':
@@ -179,6 +237,7 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
 
     /**
      * Fills default when about to create object
+     * @since 1.0.0
      */
     private function fill_defaults()
     {

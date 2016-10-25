@@ -11,11 +11,14 @@ require_once __DIR__.'/classes/wp_post.php';
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 1.0.0
+ * @version 1.0.1
  */
 
 if (!defined('ARRAY_A'))
     define('ARRAY_A', true);
+
+if (!defined('DOING_AUTOSAVE'))
+    define('DOING_AUTOSAVE', false);
 
 function get_template_directory()
 {
@@ -132,6 +135,26 @@ function wp_insert_term($name, $tax, $args)
 }
 
 function wp_delete_term($term, $tax)
+{
+    return true;
+}
+
+function do_action($hook, $callback)
+{
+    return true;
+}
+
+function apply_filters($hook, $value)
+{
+    return $value;
+}
+
+function wp_nonce_field($key, $nonce)
+{
+    return true;
+}
+
+function wp_verify_nonce($nonce, $key)
 {
     return true;
 }
