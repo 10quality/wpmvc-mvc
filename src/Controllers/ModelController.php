@@ -13,7 +13,7 @@ use WPMVC\MVC\Controller;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 1.0.0
+ * @version 2.0.2
  */
 class ModelController extends Controller
 {
@@ -56,10 +56,11 @@ class ModelController extends Controller
     /**
      * Called on post save hook.
      * @since 1.0.0
+     * @since 2.0.2 Removed deprecated function.
      */
     public function _metabox( $post )
     {
-        $model = call_user_method_array( 'find', $this->object, [$post->ID] );
+        $model = call_user_func_array( [$this->object, 'find'], [$post->ID] );
 
         do_action( 'before_controller_metabox', $post->ID, $model );
         $this->on_metabox( $model );
@@ -76,6 +77,7 @@ class ModelController extends Controller
     /**
      * Called on post save hook.
      * @since 1.0.0
+     * @since 2.0.2 Removed deprecated function.
      */
     public function _save( $post_id )
     {
@@ -86,7 +88,7 @@ class ModelController extends Controller
             return;
         }
 
-        $model = call_user_method_array( 'find', $this->object, [$post_id] );
+        $model = call_user_func_array( [$this->object, 'find'], [$post_id] );
 
         do_action( 'before_controller_save', $post_id, $model );
 
