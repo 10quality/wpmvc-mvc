@@ -95,7 +95,7 @@ class ModelController extends Controller
         foreach ( $model->aliases as $alias_key => $alias_value ) {
             if ( !preg_match( '/func\_/', $alias_value ) ) {
                 $model->$alias_key = apply_filters(
-                    'save_model_'.$mode->type.'_'.$alias_value,
+                    'save_model_'.$model->type.'_'.$alias_value,
                     Request::input( $alias_value )
                 );
             }
