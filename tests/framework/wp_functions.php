@@ -11,7 +11,7 @@ require_once __DIR__.'/classes/wp_post.php';
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 1.0.1
+ * @version 2.0.3
  */
 
 if (!defined('ARRAY_A'))
@@ -157,4 +157,9 @@ function wp_nonce_field($key, $nonce)
 function wp_verify_nonce($nonce, $key)
 {
     return true;
+}
+
+function get_stylesheet_directory()
+{
+    return __DIR__.'/theme/';
 }

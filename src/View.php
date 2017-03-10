@@ -10,7 +10,7 @@ namespace WPMVC\MVC;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 1.0.1
+ * @version 2.0.3
  */
 class View
 {
@@ -36,6 +36,7 @@ class View
     /**
      * Returns view with the parameters passed by.
      * @since 1.0.0
+     * @since 2.0.3 Support for child themes and re-mapped custom themes to 'assets' folder.
      *
      * @param string $view   Name and location of the view within "theme/views" path.
      * @param array  $params View parameters passed by.
@@ -45,7 +46,7 @@ class View
     public function get( $view, $params = array() )
     {
         $template = preg_replace( '/\./', '/', $view );
-        $theme_path =  get_template_directory() . '/views/' . $template . '.php';
+        $theme_path =  get_stylesheet_directory() . '/assets/views/' . $template . '.php';
         $plugin_path = $this->views_path . $template . '.php';
         $path = is_readable( $theme_path )
             ? $theme_path
