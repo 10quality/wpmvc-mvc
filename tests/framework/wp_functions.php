@@ -163,3 +163,8 @@ function get_stylesheet_directory()
 {
     return __DIR__.'/theme/';
 }
+
+function get_post_thumbnail_id( $id )
+{
+    return 1500;
+}
