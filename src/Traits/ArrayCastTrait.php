@@ -9,13 +9,14 @@ namespace WPMVC\MVC\Traits;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 1.0.0
+ * @version 2.0.4
  */
 trait ArrayCastTrait
 {
     /**
      * Returns object converted to array.
      * @since 1.0.1
+     * @since 2.0.4 Improve casting tree.
      *
      * @param array.
      */
@@ -41,6 +42,19 @@ trait ArrayCastTrait
             if ( preg_match( '/func_/', $property ) ) {
                 $function_name = preg_replace( '/func_/', '', $property );
                 $output[$alias] = $this->$function_name();
+                if ( is_object( $output[$alias] ) )
+                    $output[$alias] = method_exists( $output[$alias], 'to_array' ) ? $output[$alias]->to_array() : (array)$output[$alias];
+            }
+        }
+
+        // Relationships
+        foreach ( get_class_methods( $this ) as $method ) {
+            if ( ! preg_match( '/_meta|to_|\_\_|load|save|delete|from|find|alias|get|set|has_|belongs/', $method )
+                && $this->$method !== null
+            ) {
+                $output[$method] = $this->$method;
+                if ( is_object( $output[$method] ) )
+                    $output[$method] = method_exists( $output[$method], 'to_array' ) ? $output[$method]->to_array() : (array)$output[$method];
             }
         }
 

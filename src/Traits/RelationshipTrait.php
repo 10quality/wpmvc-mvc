@@ -40,9 +40,12 @@ trait RelationshipTrait
     {
         // Get relationship
         $rel = call_user_func_array( array( &$this, $method ), array() );
+        // Return on null
+        if ( $rel === null || !is_object( $rel ) )
+            return;
         $property = $rel->property;
         // Return on null
-        if ($this->$property === null)
+        if ( $this->$property === null )
             return;
         // Load object if needed
         if ( $rel->object === null ) {

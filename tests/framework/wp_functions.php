@@ -168,3 +168,15 @@ function get_post_thumbnail_id( $id )
 {
     return 1500;
 }
+
+function wp_upload_dir()
+{
+    return array(
+        'path'      => 'C:\test/wp-content/uploads',
+        'url'       => 'http://test/wp-content/uploads',
+        'subdir'    => '',
+        'basedir'   => 'C:\test/wp-content/uploads',
+        'baseurl'   => 'http://test/wp-content/uploads',
+        'error'     => null,
+    );
+}

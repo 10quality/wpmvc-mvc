@@ -23,7 +23,6 @@ class Attachment extends Model
     use FindTrait;
     /**
      * Property type.
-     * Ayuco: addition 2017-06-01 10:03 pm
      * @since 2.0.4
      *
      * @var string
