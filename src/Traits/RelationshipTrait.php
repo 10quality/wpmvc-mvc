@@ -179,11 +179,13 @@ trait RelationshipTrait
      */
     protected function has_featured( $class = null )
     {
+        if ( $class === null )
+            $class = Attachment::class;
         if ( !isset( $this->rel[Relationship::HAS_ONE][$class] ) )
             $this->rel[Relationship::HAS_ONE][$class] = new Relationship(
                 $this,
                 Relationship::HAS_ONE,
-                Attachment::class,
+                $class,
                 'ID',
                 'find',
                 'get_post_thumbnail_id'
