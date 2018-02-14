@@ -66,7 +66,7 @@ trait RelationshipTrait
                             );
                     }
                     // Update relationship
-                    $this->rel[$rel->type][$rel->class] = $rel->object;
+                    $this->rel[$rel->type][$rel->class]->object = $rel->object;
                     break;
                 case Relationship::HAS_MANY:
                     $rel->object = new Collection;
@@ -86,7 +86,7 @@ trait RelationshipTrait
                         }
                     }
                     // Update relationship
-                    $this->rel[$rel->type][$rel->class] = $rel->object;
+                    $this->rel[$rel->type][$rel->class]->object = $rel->object;
                     break;
             }
         }
