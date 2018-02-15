@@ -19,21 +19,21 @@ class Relationship
      *
      * @var string
      */
-    public const HAS_ONE = 'has_one';
+    const HAS_ONE = 'has_one';
     /**
      * Belongs to parent relationship constant.
      * @since 2.0.4
      *
      * @var string
      */
-    public const BELONGS_TO = 'belongs_to';
+    const BELONGS_TO = 'belongs_to';
     /**
      * Has many relationship constant.
      * @since 2.0.4
      *
      * @var string
      */
-    public const HAS_MANY = 'has_many';
+    const HAS_MANY = 'has_many';
     /**
      * Parent class reference.
      * @since 2.0.4
