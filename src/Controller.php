@@ -9,7 +9,7 @@ namespace WPMVC\MVC;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 1.0.0
+ * @version 2.0.4
  */
 abstract class Controller
 {
@@ -30,12 +30,14 @@ abstract class Controller
     /**
      * Default construct.
      * @since 1.0.0
+     * @since 2.0.4 Allows controller to be called prios wordpress init.
      *
      * @param object $view View class object.
      */
     public function __construct( $view )
     {
-        $this->user = \get_userdata( get_current_user_id() );
+        if ( function_exists( 'get_userdata' ) )
+            $this->user = \get_userdata( get_current_user_id() );
         $this->view = $view;
     }
 }
