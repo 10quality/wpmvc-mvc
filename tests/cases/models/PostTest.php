@@ -89,9 +89,11 @@ class PostTest extends MVCTestCase
             'post_name',
             'post_title',
             'post_content',
+            'parent',
+            'post_parent',
         ]);
 
-        $this->assertEquals($post->to_array(), ['ID' => 1]);
+        $this->assertEquals(['ID' => 1], $post->to_array());
     }
 
     /**
@@ -103,8 +105,10 @@ class PostTest extends MVCTestCase
         $post->setHidden([
             'post_title',
             'post_content',
+            'parent',
+            'post_parent',
         ]);
 
-        $this->assertEquals((string)$post, '{"ID":1,"post_name":"hello-world"}');
+        $this->assertEquals('{"ID":1,"post_name":"hello-world"}', (string)$post);
     }
 }

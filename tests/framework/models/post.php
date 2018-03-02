@@ -9,10 +9,12 @@ class Post extends PostModel
 
     protected $type = 'test';
 
+    /*
     protected function image()
     {
         return $this->has_featured();
     }
+    */
     protected function parent()
     {
         return $this->belongs_to(Post::class, 'post_parent');
