@@ -11,7 +11,7 @@ require_once __DIR__.'/classes/wp_post.php';
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.0.3
+ * @version 2.1.0
  */
 
 if (!defined('ARRAY_A'))
@@ -179,4 +179,14 @@ function wp_upload_dir()
         'baseurl'   => 'http://test/wp-content/uploads',
         'error'     => null,
     );
+}
+
+function maybe_unserialize($value)
+{
+    return $value;
+}
+
+function maybe_serialize($value)
+{
+    return $value;
 }

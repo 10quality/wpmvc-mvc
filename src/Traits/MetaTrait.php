@@ -6,10 +6,11 @@ namespace WPMVC\MVC\Traits;
  * Trait related to all meta functionality of a model.
  *
  * @author Alejandro Mostajo <http://about.me/amostajo>
+ * @author Cami Mostajo
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 1.0.1
+ * @version 2.1.0
  */
 trait MetaTrait
 {
@@ -23,6 +24,11 @@ trait MetaTrait
     /**
      * Loads meta values into objet.
      * @since 1.0.0
+     * @since 2.1.0 Unserialize method changed.
+     *
+     * @see https://codex.wordpress.org/Function_Reference/maybe_unserialize
+     * @see https://eval.in/966124
+     * @see http://php.net/manual/en/function.json-last-error.php
      */
     public function load_meta()
     {
@@ -33,16 +39,15 @@ trait MetaTrait
                 || in_array( 'meta_' . $key, $this->aliases )
             ) {
                 $value = $value[0];
-
-                $this->meta[$key] = is_string( $value )
-                    ? ( preg_match( '/_wp_/', $key )
-                        ? $value
-                        : json_decode( $value )
-                    )
-                    : ( is_integer( $value )
-                        ? intval( $value )
-                        : floatval( $value )
-                    );
+                // Check for json string
+                if ( is_string( $value )
+                    && preg_match( '/(\{|\[)(?:[^{}]|(?R))*(\}|\])/', $value )
+                ) {
+                    $this->meta[$key] = json_decode( $value );
+                    if ( json_last_error() === JSON_ERROR_NONE )
+                        break; // Break loop
+                }
+                $this->meta[$key] = maybe_unserialize( $value );
             }
         }
     }
@@ -104,6 +109,9 @@ trait MetaTrait
      * Either adds or updates a meta.
      * @since 1.0.0
      * @since 1.0.1 Hotfix, only saves registered meta.
+     * @since 2.0.0 Serialization changed.
+     *
+     * @see https://codex.wordpress.org/Function_Reference/maybe_serialize
      *
      * @param string $key   Key.
      * @param mixed  $value Value.
@@ -111,18 +119,13 @@ trait MetaTrait
     public function save_meta( $key, $value, $update_array = true )
     {
         if ( preg_match( '/_wp_/', $key ) ) return;
-
         if ( ! in_array( 'meta_' . $key, $this->aliases ) ) return;
-        
         if ( $update_array )
             $this->meta[$key] = $value;
-
-        \update_post_meta( 
+        update_post_meta( 
             $this->attributes['ID'],
             $key,
-            is_numeric( $value )
-                ? $value
-                : json_encode( $value )
+            maybe_serialize( $value )
         );
     }
 
