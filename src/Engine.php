@@ -9,7 +9,7 @@ namespace WPMVC\MVC;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 1.0.3
+ * @version 2.0.0
  */
 class Engine
 {
@@ -37,15 +37,18 @@ class Engine
     /**
      * Default engine constructor.
      * @since 1.0.0
+     * @since 2.1.0 Added views_relative_path
      *
-     * @param string $controllers_path
-     * @param string $namespace
+     * @param string $views_path              Primary path in which views are located.
+     * @param string $controllers_path        Path in which controllers are located.
+     * @param string $namespace               Project namespace.
+     * @param string $alt_views_relative_path Alternate relative path (for themes) in which views can be located.
      */
-    public function __construct( $views_path, $controllers_path, $namespace )
+    public function __construct( $views_path, $controllers_path, $namespace, $alt_views_relative_path = null )
     {
         $this->controllers_path = $controllers_path;
         $this->namespace = $namespace;
-        $this->view = new View( $views_path );
+        $this->view = new View( $views_path, $alt_views_relative_path );
     }
 
     /**
