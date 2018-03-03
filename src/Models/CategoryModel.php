@@ -21,7 +21,7 @@ use WPMVC\MVC\Traits\ArrayCastTrait;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.1
+ * @version 2.1.2
  */
 abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, Stringable, Arrayable
 {
@@ -196,6 +196,7 @@ abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, 
      * Either adds or updates a meta.
      * @since 1.0.0
      * @since 2.1.1 Uses wordpress serialization.
+     * @since 2.1.2 Removed serialization, already done by wp.
      *
      * @param string $key   Key.
      * @param mixed  $value Value.
@@ -209,7 +210,7 @@ abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, 
             update_term_meta(
                 $this->term_id,
                 $key,
-                maybe_serialize( $value )
+                $value
             );
         } catch ( Exception $e ) {
             Log::error( $e );

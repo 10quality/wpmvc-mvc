@@ -201,6 +201,7 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
      * Either adds or updates a meta.
      * @since 1.0.0
      * @since 2.1.1 Uses wordpress serialization.
+     * @since 2.1.2 Removed serialization, already done by wp.
      *
      * @param string $key   Key.
      * @param mixed  $value Value.
@@ -213,7 +214,7 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
         update_user_meta( 
             $this->ID,
             $key,
-            maybe_serialize( $value )
+            $value
         );
     }
 

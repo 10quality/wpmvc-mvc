@@ -10,7 +10,7 @@ namespace WPMVC\MVC\Traits;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.1
+ * @version 2.1.2
  */
 trait MetaTrait
 {
@@ -134,7 +134,7 @@ trait MetaTrait
         update_post_meta( 
             $this->attributes['ID'],
             $key,
-            maybe_serialize( $value )
+            $value
         );
     }
 
