@@ -22,7 +22,7 @@ use WPMVC\MVC\Traits\ArrayCastTrait;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 1.0.0
+ * @version 2.1.1
  */
 abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stringable, Arrayable
 {
@@ -48,6 +48,13 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
      * @var array
      */
     protected $hidden = [];
+
+    /**
+     * Flag that indicates if model should decode meta string values identified as JSON.
+     * @since 2.1.1
+     * @var bool
+     */
+    protected $decode_json_meta = true;
 
     /**
      * Default constructor.
@@ -116,22 +123,23 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
     /**
      * Loads user meta data.
      * @since 1.0.0
+     * @since 2.1.1 Uses wordpress serialization.
      */
     public function load_meta()
     {
         if ( $this->ID ) {
             foreach ( get_user_meta( $this->ID ) as $key => $value ) {
                 $value = is_array( $value ) ? $value[0] : $value;
-
-                $this->meta[$key] = is_string( $value )
-                    ? ( preg_match( '/\{|\[/', $value )
-                        ? (array)json_decode( $value )
-                        : $value
-                    )
-                    : ( is_integer( $value )
-                        ? intval( $value )
-                        : floatval( $value )
-                    );
+                // Check for json string
+                if ( $this->decode_json_meta
+                    && is_string( $value )
+                    && preg_match( '/(\{|\[|\")(?:[^{}]|(?R))*(\}|\]|\")/', $value )
+                ) {
+                    $this->meta[$key] = json_decode( $value );
+                    if ( json_last_error() === JSON_ERROR_NONE )
+                        continue; // Break loop
+                }
+                $this->meta[$key] = maybe_unserialize( $value );
             }
         }
     }
@@ -192,6 +200,7 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
     /**
      * Either adds or updates a meta.
      * @since 1.0.0
+     * @since 2.1.1 Uses wordpress serialization.
      *
      * @param string $key   Key.
      * @param mixed  $value Value.
@@ -204,12 +213,7 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
         update_user_meta( 
             $this->ID,
             $key,
-            is_array( $value )
-                ? json_encode( $value )
-                : ( is_object( $value )
-                    ? json_encode( (array)$value )
-                    : $value
-                )
+            maybe_serialize( $value )
         );
     }
 

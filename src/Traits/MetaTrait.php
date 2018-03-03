@@ -118,7 +118,7 @@ trait MetaTrait
      * Either adds or updates a meta.
      * @since 1.0.0
      * @since 1.0.1 Hotfix, only saves registered meta.
-     * @since 2.0.0 Serialization changed.
+     * @since 2.1.1 Serialization changed.
      *
      * @see https://codex.wordpress.org/Function_Reference/maybe_serialize
      *
