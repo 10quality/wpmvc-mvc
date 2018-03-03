@@ -10,7 +10,7 @@ namespace WPMVC\MVC\Traits;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.0
+ * @version 2.1.1
  */
 trait MetaTrait
 {
@@ -22,9 +22,17 @@ trait MetaTrait
     protected $meta = array();
 
     /**
+     * Flag that indicates if model should decode meta string values identified as JSON.
+     * @since 2.1.1
+     * @var bool
+     */
+    protected $decode_json_meta = true;
+
+    /**
      * Loads meta values into objet.
      * @since 1.0.0
      * @since 2.1.0 Unserialize method changed.
+     * @since 2.1.1 Fixes casting issues.
      *
      * @see https://codex.wordpress.org/Function_Reference/maybe_unserialize
      * @see https://eval.in/966124
@@ -40,12 +48,13 @@ trait MetaTrait
             ) {
                 $value = $value[0];
                 // Check for json string
-                if ( is_string( $value )
-                    && preg_match( '/(\{|\[)(?:[^{}]|(?R))*(\}|\])/', $value )
+                if ( $this->decode_json_meta
+                    && is_string( $value )
+                    && preg_match( '/(\{|\[|\")(?:[^{}]|(?R))*(\}|\]|\")/', $value )
                 ) {
                     $this->meta[$key] = json_decode( $value );
                     if ( json_last_error() === JSON_ERROR_NONE )
-                        break; // Break loop
+                        continue; // Break loop
                 }
                 $this->meta[$key] = maybe_unserialize( $value );
             }
