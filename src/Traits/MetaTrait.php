@@ -119,6 +119,7 @@ trait MetaTrait
      * @since 1.0.0
      * @since 1.0.1 Hotfix, only saves registered meta.
      * @since 2.1.1 Serialization changed.
+     * @since 2.1.2 Removed serialization, already done by wp.
      *
      * @see https://codex.wordpress.org/Function_Reference/maybe_serialize
      *
