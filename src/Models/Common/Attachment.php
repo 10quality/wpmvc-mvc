@@ -16,7 +16,7 @@ use WPMVC\MVC\Models\PostModel as Model;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.0.4
+ * @version 2.1.2
  */
 class Attachment extends Model
 {
@@ -114,23 +114,25 @@ class Attachment extends Model
     /**
      * Returns image with thumb resolution.
      * @since 2.0.4
+     * @since 2.1.2 Fixes ID reference.
      *
      * @return string
      */
     public function get_thumb_url()
     {
         $path = $this->path;
+        $ID = $this->ID;
         return Cache::remember(
             'attachment_' . $this->ID . '_thumb',
             43200,
-            function() use( &$path ) {
+            function() use( &$path, &$ID ) {
                 try {
                     return resize_image(
                         $path,
                         get_option( 'thumbnail_size_w', 150),
                         get_option( 'thumbnail_size_h', 150),
                         true,
-                        $this->ID
+                        $ID
                     );
                 } catch ( Exception $e ) {
                     Log::error( $e );
@@ -142,23 +144,25 @@ class Attachment extends Model
     /**
      * Returns image with large resolution.
      * @since 2.0.4
+     * @since 2.1.2 Fixes ID reference.
      *
      * @return string
      */
     public function get_large_url()
     {
         $path = $this->path;
+        $ID = $this->ID;
         return Cache::remember(
             'attachment_' . $this->ID . '_large',
             43200,
-            function() use( &$path ) {
+            function() use( &$path, &$ID ) {
                 try {
                     return resize_image(
                         $path,
                         get_option( 'large_size_w', 1024),
                         get_option( 'large_size_h', 1024),
                         false,
-                        $this->ID
+                        $ID
                     );
                 } catch ( Exception $e ) {
                     Log::error( $e );
@@ -170,23 +174,25 @@ class Attachment extends Model
     /**
      * Returns image with medium resolution.
      * @since 2.0.4
+     * @since 2.1.2 Fixes ID reference.
      *
      * @return string
      */
     public function get_medium_url()
     {
         $path = $this->path;
+        $ID = $this->ID;
         return Cache::remember(
             'attachment_' . $this->ID . '_medium',
             43200,
-            function() use( &$path ) {
+            function() use( &$path, &$ID ) {
                 try {
                     return resize_image(
                         $path,
                         get_option( 'medium_size_w', 300),
                         get_option( 'medium_size_h', 300),
                         false,
-                        $this->ID
+                        $ID
                     );
                 } catch ( Exception $e ) {
                     Log::error( $e );
