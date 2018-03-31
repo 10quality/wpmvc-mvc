@@ -13,7 +13,7 @@ use WPMVC\MVC\Models\Common\Attachment;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.0.4
+ * @version 2.1.3
  */
 trait RelationshipTrait
 {
@@ -174,13 +174,14 @@ trait RelationshipTrait
      * Returns relationship class.
      * Standard Wordpress featured attachment relationship.
      * @since 2.0.4
+     * @since 2.1.3 Remove `::class` to support php 5.4.
      *
      * @return object|Relationship
      */
     protected function has_featured( $class = null )
     {
         if ( $class === null )
-            $class = Attachment::class;
+            $class = '\WPMVC\MVC\Models\Common\Attachment';
         if ( !isset( $this->rel[Relationship::HAS_ONE][$class] ) )
             $this->rel[Relationship::HAS_ONE][$class] = new Relationship(
                 $this,
