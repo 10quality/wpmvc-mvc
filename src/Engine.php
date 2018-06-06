@@ -2,6 +2,8 @@
 
 namespace WPMVC\MVC;
 
+use Exception;
+
 /**
  * MVC engine.
  *
@@ -9,7 +11,7 @@ namespace WPMVC\MVC;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.0.0
+ * @version 2.1.4
  */
 class Engine
 {
