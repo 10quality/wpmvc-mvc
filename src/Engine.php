@@ -11,7 +11,7 @@ use Exception;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.4
+ * @version 2.1.5
  */
 class Engine
 {
@@ -34,6 +34,12 @@ class Engine
      */
     protected $view;
     /**
+     * Controller execution buffer.
+     * @since 1.0.0
+     * @var array
+     */ 
+    protected static $buffer = array();
+    /**
      * Default engine constructor.
      * @since 1.0.0
      * @since 2.1.0 Added views_relative_path
@@ -48,6 +54,8 @@ class Engine
         $this->controllers_path = $controllers_path;
         $this->namespace = $namespace;
         $this->view = new View( $views_path, $alt_views_relative_path );
+        if ( ! isset( static::$buffer[$this->namespace] ) )
+            static::$buffer[$this->namespace] = [];
     }
     /**
      * Calls controller and function.
@@ -113,6 +121,7 @@ class Engine
      * Returns result.
      * @since 1.0.0
      * @since 1.0.3 Renamed to exec to run, for WP theme validation pass.
+     * @since 2.1.5 Buffer implemented.
      *
      * @param string $controller_name Controller name and method. i.e. DealController@show
      * @param array  $args               Controller parameters.
@@ -125,12 +134,19 @@ class Engine
             throw new Exception( sprintf( 'Controller action must be defined in %s.', $controller_name ) );
         }
         // Get controller
-        require_once(  $this->controllers_path . $compo[0] . '.php' );
         $classname = sprintf( $this->namespace . '\Controllers\%s', $compo[0]);
-        $controller = new $classname( $this->view );
+        if ( isset( static::$buffer[$this->namespace][$classname] ) ) {
+            $controller = static::$buffer[$this->namespace][$classname]['o'];
+            static::$buffer[$this->namespace][$classname]['t'] = 0;
+        } else {
+            require_once(  $this->controllers_path . $compo[0] . '.php' );
+            $controller = new $classname( $this->view );
+            static::$buffer[$this->namespace][$classname] = ['o' => &$controller, 't' => 0];
+        }
         if ( !method_exists( $controller, $compo[1] ) ) {
             throw new Exception( sprintf( 'Controller action "%s" not found in %s.', $compo[1], $compo[0] ) );
         }
+        $this->clean_buffer();
         return call_user_func_array( [ $controller, $compo[1] ], $args );
     }
 
@@ -149,5 +165,20 @@ class Engine
                 return $this->$property;
         }
         return null;
+    }
+    /**
+     * Touches controller counts in buffer to determine if there are controllers that should be removed from memory.
+     * @since 2.1.5
+     */
+    private function clean_buffer()
+    {
+        if ( isset( static::$buffer[$this->namespace] ) )
+            foreach ( array_keys( static::$buffer[$this->namespace] ) as $classname ) {
+                if ( static::$buffer[$this->namespace][$classname]['t'] >= 7 ) {
+                    unset( static::$buffer[$this->namespace][$classname] );
+                } else {
+                    static::$buffer[$this->namespace][$classname]['t']++;
+                }
+            }
     }
 }
