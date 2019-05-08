@@ -18,11 +18,9 @@ class ModelTest extends MVCTestCase
         // Prepare
         $post = new stdClass;
         $post->ID = 5;
-
         // Assert
         $this->assertControllerCall('PostController@_metabox', 'Metaboxes for type: test', $post);
     }
-
     /**
      * Tests model controller method.
      */

@@ -17,7 +17,6 @@ class ViewTest extends MVCTestCase
     {
         $this->assertViewOutput('theme', 'test theme view');
     }
-
     /**
      * Tests view parameters.
      */

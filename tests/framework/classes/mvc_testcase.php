@@ -19,7 +19,6 @@ abstract class MVCTestCase extends PHPUnit_Framework_TestCase
      * @since 1.0.0
      */
     protected $engine;
-
     /**
      * Constructs a test case with the given name.
      * @since 1.0.0
@@ -37,7 +36,6 @@ abstract class MVCTestCase extends PHPUnit_Framework_TestCase
             'WPMVC\Testing'
         );
     }
-
     /**
      * Asserts the execution of a controller output.
      * @since 1.0.0
@@ -59,7 +57,6 @@ abstract class MVCTestCase extends PHPUnit_Framework_TestCase
             $message
         );
     }
-
     /**
      * Asserts the execution of a controller output.
      * @since 1.0.0
@@ -79,7 +76,6 @@ abstract class MVCTestCase extends PHPUnit_Framework_TestCase
             $message
         );
     }
-
     /**
      * Asserts the execution of a controller output.
      * @since 1.0.0

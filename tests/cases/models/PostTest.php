@@ -16,24 +16,18 @@ class PostTest extends MVCTestCase
     public function testConstruct()
     {
         $post = new Post;
-
         $this->assertEquals($post->to_array(), []);
     }
-
     /**
      * Tests model find.
      */
     public function testFind()
     {
         $post = Post::find(1);
-
         $this->assertEquals($post->ID, 1);
-
         $this->assertEquals($post->post_name, 'hello-world');
-
         $this->assertEquals($post->type, 'test');
     }
-
     /**
      * Tests model aliases.
      */
@@ -44,18 +38,12 @@ class PostTest extends MVCTestCase
             'slug'  => 'post_name',
             'name'  => 'func_concat_name',
         ]);
-
         $this->assertEquals($post->slug, 'hello-world');
-
         $this->assertEquals($post->name, 'hello-worldhello-world');
-
         $post->slug = 'test';
-
         $this->assertEquals($post->slug, 'test');
-
         $this->assertEquals($post->post_name, 'test');
     }
-
     /**
      * Tests model meta.
      */
@@ -65,20 +53,13 @@ class PostTest extends MVCTestCase
         $post->setAliases([
             'views'  => 'meta_views',
         ]);
-
         $this->assertNull($post->views);
-
         $post->views = 99;
-
         $this->assertEquals($post->views, 99);
-
         $this->assertTrue($post->has_meta('views'));
-
         $this->assertFalse($post->has_meta('viewed'));
-
         $this->assertTrue($post->save());
     }
-
     /**
      * Tests model casting to array.
      */
@@ -92,10 +73,8 @@ class PostTest extends MVCTestCase
             'parent',
             'post_parent',
         ]);
-
         $this->assertEquals(['ID' => 1], $post->to_array());
     }
-
     /**
      * Tests model casting to string / json.
      */
@@ -108,7 +87,6 @@ class PostTest extends MVCTestCase
             'parent',
             'post_parent',
         ]);
-
         $this->assertEquals('{"ID":1,"post_name":"hello-world"}', (string)$post);
     }
 }

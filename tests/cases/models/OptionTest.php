@@ -16,10 +16,8 @@ class OptionTest extends MVCTestCase
     public function testConstruct()
     {
         $option = new Option;
-
         $this->assertNotEmpty($option->to_array());
     }
-
     /**
      * Tests model find.
      */
@@ -32,12 +30,9 @@ class OptionTest extends MVCTestCase
             'b'         => 'field_b',
             'isSetup'   => 'field_isSetup',
         ]);
-
         $this->assertEquals($option->ID, 'test');
-
         $this->assertFalse($option->isSetup);
     }
-
     /**
      * Tests model aliases.
      */
@@ -50,18 +45,12 @@ class OptionTest extends MVCTestCase
             'b'         => 'field_b',
             'ab'        => 'func_concat_ab',
         ]);
-
         $this->assertEquals($option->avalue, 'A value');
-
         $this->assertEquals($option->ab, 'A valueB value');
-
         $option->avalue = 'test';
-
         $this->assertEquals($option->a, 'test');
-
         $this->assertEquals($option->field_a, 'test');
     }
-
     /**
      * Tests model casting to array.
      */
@@ -76,10 +65,8 @@ class OptionTest extends MVCTestCase
             'field_b',
             'field_isSetup',
         ]);
-
         $this->assertEquals($option->to_array(), ['ID' => 'test']);
     }
-
     /**
      * Tests model casting to string / json.
      */
@@ -94,7 +81,6 @@ class OptionTest extends MVCTestCase
             'field_a',
             'field_b',
         ]);
-
         $this->assertEquals((string)$option, '{"ID":"test","isSetup":false}');
     }
 }

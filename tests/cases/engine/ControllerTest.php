@@ -16,10 +16,8 @@ class ControllerTest extends MVCTestCase
     public function testParameters()
     {
         $param = 1;
-
         $this->assertControllerAction('TestController@param', 1, $param);
     }
-
     /**
      * Tests call output (view handling).
      */
@@ -27,7 +25,6 @@ class ControllerTest extends MVCTestCase
     {
         $this->assertControllerCall('TestController@view', 'test', 'plugin');
     }
-
     /**
      * Tests call output.
      */

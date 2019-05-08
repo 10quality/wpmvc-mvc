@@ -17,7 +17,6 @@ class EngineTest extends MVCTestCase
     {
         $this->assertTrue(is_a($this->engine->view, 'WPMVC\MVC\View'));
     }
-
     /**
      * Tests engine controller creation.
      */
@@ -25,7 +24,6 @@ class EngineTest extends MVCTestCase
     {
         $this->assertTrue($this->engine->action('TestController@get'));
     }
-
     /**
      * Tests engine controller creation.
      */

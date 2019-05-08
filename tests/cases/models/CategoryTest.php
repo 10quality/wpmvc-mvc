@@ -16,22 +16,17 @@ class CategoryTest extends MVCTestCase
     public function testConstruct()
     {
         $category = new Category;
-
         $this->assertEquals($category->to_array(), []);
     }
-
     /**
      * Tests model find.
      */
     public function testFind()
     {
         $category = Category::find(1);
-
         $this->assertEquals($category->term_id, 1);
-
         $this->assertEquals($category->name, 'Category');
     }
-
     /**
      * Tests model aliases.
      */
@@ -42,18 +37,12 @@ class CategoryTest extends MVCTestCase
             'ID'        => 'term_id',
             'concat'    => 'func_concat_name',
         ]);
-
         $this->assertEquals($category->ID, 1);
-
         $this->assertEquals($category->concat, 'Categorycategory');
-
         $category->ID = 99;
-
         $this->assertEquals($category->ID, 99);
-
         $this->assertEquals($category->term_id, 99);
     }
-
     /**
      * Tests model meta.
      */
@@ -63,20 +52,13 @@ class CategoryTest extends MVCTestCase
         $category->setAliases([
             'views'  => 'meta_views',
         ]);
-
         $this->assertNull($category->views);
-
         $category->views = 99;
-
         $this->assertEquals($category->views, 99);
-
         $this->assertTrue($category->has_meta('views'));
-
         $this->assertFalse($category->has_meta('viewed'));
-
         $this->assertTrue($category->save());
     }
-
     /**
      * Tests model casting to array.
      */
@@ -90,10 +72,8 @@ class CategoryTest extends MVCTestCase
             'description',
             'taxonomy',
         ]);
-
         $this->assertEquals($category->to_array(), ['term_id' => 1]);
     }
-
     /**
      * Tests model casting to string / json.
      */
@@ -106,7 +86,6 @@ class CategoryTest extends MVCTestCase
             'description',
             'taxonomy',
         ]);
-
         $this->assertEquals((string)$category, '{"term_id":1,"slug":"category"}');
     }
 }

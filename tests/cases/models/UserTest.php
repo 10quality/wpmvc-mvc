@@ -16,22 +16,17 @@ class UserTest extends MVCTestCase
     public function testConstruct()
     {
         $user = new User;
-
         $this->assertEquals($user->to_array(), []);
     }
-
     /**
      * Tests model find.
      */
     public function testFind()
     {
         $user = User::find(404);
-
         $this->assertEquals($user->ID, 404);
-
         $this->assertEquals($user->first_name, 'John');
     }
-
     /**
      * Tests model aliases.
      */
@@ -42,18 +37,12 @@ class UserTest extends MVCTestCase
             'firstname' => 'first_name',
             'fullname'  => 'func_fullname',
         ]);
-
         $this->assertEquals($user->firstname, 'John');
-
         $this->assertEquals($user->fullname, 'John Doe');
-
         $user->firstname = 'test';
-
         $this->assertEquals($user->firstname, 'test');
-
         $this->assertEquals($user->first_name, 'test');
     }
-
     /**
      * Tests model meta.
      */
@@ -63,20 +52,13 @@ class UserTest extends MVCTestCase
         $user->setAliases([
             'views'  => 'meta_views',
         ]);
-
         $this->assertNull($user->views);
-
         $user->views = 99;
-
         $this->assertEquals($user->views, 99);
-
         $this->assertTrue($user->has_meta('views'));
-
         $this->assertFalse($user->has_meta('viewed'));
-
         $this->assertTrue($user->save());
     }
-
     /**
      * Tests model casting to array.
      */
@@ -92,10 +74,8 @@ class UserTest extends MVCTestCase
             'last_name',
             'user_login',
         ]);
-
         $this->assertEquals($user->to_array(), ['ID' => 404]);
     }
-
     /**
      * Tests model casting to string / json.
      */
@@ -110,7 +90,6 @@ class UserTest extends MVCTestCase
             'first_name',
             'last_name',
         ]);
-
         $this->assertEquals((string)$user, '{"ID":404,"user_login":"admin"}');
     }
 }
