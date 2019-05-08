@@ -2,6 +2,7 @@
 
 require_once __DIR__.'/classes/wp_user.php';
 require_once __DIR__.'/classes/wp_post.php';
+require_once __DIR__.'/classes/wp_term.php';
 
 /**
  * Wordpress compatibility functions.
@@ -11,7 +12,7 @@ require_once __DIR__.'/classes/wp_post.php';
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.0
+ * @version 2.1.5
  */
 
 if (!defined('ARRAY_A'))
@@ -131,7 +132,7 @@ function get_term_meta($ID, $key = '', $row = true)
 
 function wp_insert_term($name, $tax, $args)
 {
-    return true;
+    return rand();
 }
 
 function wp_delete_term($term, $tax)
@@ -189,4 +190,27 @@ function maybe_unserialize($value)
 function maybe_serialize($value)
 {
     return $value;
+}
+
+function get_terms( $tax, $args )
+{
+    return [
+        new WP_Term(1, $tax),
+        new WP_Term(2, $tax),
+    ];
+}
+
+function get_term( $id, $tax )
+{
+    return ['term_id' => $id, 'slug' => 'term-'.$id, 'name' => 'Term ID:'.$id, 'taxonomy' => $tax];
+}
+
+function get_term_by( $prop, $slug, $tax )
+{
+    return ['term_id' => 404, 'slug' => $slug, 'name' => ucfirst( $slug ), 'taxonomy' => $tax];
+}
+
+function wp_update_term($id, $tax, $args)
+{
+    return $id;
 }

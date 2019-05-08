@@ -9,3 +9,4 @@ require_once __DIR__.'/framework/models/post.php';
 require_once __DIR__.'/framework/models/user.php';
 require_once __DIR__.'/framework/models/option.php';
 require_once __DIR__.'/framework/models/category.php';
+require_once __DIR__.'/framework/models/term.php';
