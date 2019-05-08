@@ -26,20 +26,16 @@ trait GetterTrait
     {
         $value = null;
         $property = $this->get_alias_property( $property );
-
         if ( preg_match( '/meta_/', $property ) ) {
             $value = $this->get_meta( preg_replace( '/meta_/', '', $property ) );
         }
-
         if ( preg_match( '/func_/', $property ) ) {
             $function_name = preg_replace( '/func_/', '', $property );
             $value = $this->$function_name();
         }
-
         if ( is_array( $this->attributes ) &&  array_key_exists( $property, $this->attributes ) ) {
             $value = $this->attributes[$property];
         }
-
         return $value;
     }
 }

@@ -23,7 +23,6 @@ trait CastTrait
     {
         return $this->to_array();
     }
-
     /**
      * Returns json string.
      *
@@ -33,7 +32,6 @@ trait CastTrait
     {
         return json_encode( $this->to_array() );
     }
-
     /**
      * Returns string.
      *

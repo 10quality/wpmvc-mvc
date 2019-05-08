@@ -26,7 +26,6 @@ trait FindTermTrait
     {
         return new self( $taxonomy, $id );
     }
-
     /**
      * Finds record based on a slug.
      * @since 2.1.5
@@ -40,7 +39,6 @@ trait FindTermTrait
         $model->load_by_slug( $slug );
         return $model;
     }
-
     /**
      * Returns all terms found in the db.
      * @since 1.0.0

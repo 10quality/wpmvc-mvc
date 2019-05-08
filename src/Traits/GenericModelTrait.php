@@ -28,18 +28,14 @@ trait GenericModelTrait
     {
         $value = null;
         $property = $this->get_alias_property( $property );
-
         if ( preg_match( '/field_/', $property )
             && is_array( $this->attributes )
             && array_key_exists( preg_replace( '/field_/', '', $property ), $this->attributes )
         ) {
             return $this->attributes[preg_replace( '/field_/', '', $property )];
         }
-
         if ( preg_match( '/func_/', $property ) ) {
-
             $function_name = preg_replace( '/func_/', '', $property );
-
             $value = $this->$function_name();
         }
         return $value;
@@ -58,17 +54,12 @@ trait GenericModelTrait
     public function __set( $property, $value )
     {
         $property = $this->get_alias_property( $property );
-
         if ( preg_match( '/field_/', $property ) ) {
-
             if ( ! is_array( $this->attributes ) )
                 $this->attributes = array();
-
             $this->attributes[preg_replace( '/field_/', '', $property )] = $value;
-
         }
     }
-
     /**
      * Returns object converted to array.
      * @since 1.0.0
@@ -78,12 +69,10 @@ trait GenericModelTrait
     public function to_array()
     {
         $output = array();
-
         // Attributes
         foreach ($this->attributes as $property => $value) {
             $output[$this->get_alias('field_' . $property)] = $value;
         }
-
         // Functions
         foreach ($this->aliases as $alias => $property) {
             if ( preg_match( '/func_/', $property ) ) {
@@ -91,15 +80,12 @@ trait GenericModelTrait
                 $output[$alias] = $this->$function_name();
             }
         }
-
         // Hidden
         foreach ( $this->hidden as $key ) {
             unset( $output[$key] );
         }
-
         return $output;
     }
-
     /**
      * Returns object converted to array.
      * @since 1.0.0

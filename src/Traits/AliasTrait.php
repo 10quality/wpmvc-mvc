@@ -19,7 +19,6 @@ trait AliasTrait
      * @var array
      */
     protected $aliases = array();
-
     /**
      * Returns property mapped to alias.
      * @since 1.0.0
@@ -32,10 +31,8 @@ trait AliasTrait
     {
         if ( array_key_exists( $alias, $this->aliases ) )
             return $this->aliases[$alias];
-
         return $alias;
     }
-
     /**
      * Returns alias name mapped to property.
      * @since 1.0.0
@@ -48,7 +45,6 @@ trait AliasTrait
     {
         if ( in_array( $property, $this->aliases ) )
             return array_search( $property, $this->aliases );
-
         return $property;
     }
 }

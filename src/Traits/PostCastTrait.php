@@ -23,24 +23,15 @@ trait PostCastTrait
     public function from_post( $object )
     {
         if ( is_array( $object ) ) {
-
             $this->attributes = $object;
-
         } else if ( is_a( $object, 'WP_Post' ) ) {
-
             $this->attributes = $object->to_array();
-
         }
-
         if ( ! empty( $this->attributes ) ) {
-
             $this->load_meta();
-            
         }
-
         return $this;
     }
-
     /**
      * Cast object into a WP_Post.
      * @since 1.0.0

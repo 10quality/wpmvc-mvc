@@ -20,14 +20,12 @@ trait MetaTrait
      * @var array
      */
     protected $meta = array();
-
     /**
      * Flag that indicates if model should decode meta string values identified as JSON.
      * @since 2.1.1
      * @var bool
      */
     protected $decode_json_meta = true;
-
     /**
      * Loads meta values into objet.
      * @since 1.0.0
@@ -41,7 +39,6 @@ trait MetaTrait
     public function load_meta()
     {
         if ( empty( $this->attributes ) ) return;
-
         foreach ( get_post_meta( $this->attributes['ID'] ) as $key => $value ) {
             if ( ! preg_match( '/_wp_/', $key )
                 || in_array( 'meta_' . $key, $this->aliases )
@@ -60,7 +57,6 @@ trait MetaTrait
             }
         }
     }
-
     /**
      * Returns flag indicating if object has meta key.
      * @since 1.0.0
@@ -73,7 +69,6 @@ trait MetaTrait
     {
         return array_key_exists( $key, $this->meta );
     }
-
     /**
      * Sets meta value.
      * @since 1.0.0
@@ -85,7 +80,6 @@ trait MetaTrait
     {
         $this->meta[$key] = $value;
     }
-
     /**
      * Gets value from meta.
      * @since 1.0.0
@@ -98,7 +92,6 @@ trait MetaTrait
     {
         return $this->has_meta( $key ) ? $this->meta[$key] : null;
     }
-
     /**
      * Deletes meta.
      * @since 1.0.0
@@ -108,12 +101,9 @@ trait MetaTrait
     public function delete_meta( $key )
     {
         if ( ! $this->has_meta( $key ) ) return;
-
         delete_post_meta( $this->attributes['ID'], $key );
-
         unset( $this->meta[$key] );
     }
-
     /**
      * Either adds or updates a meta.
      * @since 1.0.0
@@ -132,13 +122,8 @@ trait MetaTrait
         if ( ! in_array( 'meta_' . $key, $this->aliases ) ) return;
         if ( $update_array )
             $this->meta[$key] = $value;
-        update_post_meta( 
-            $this->attributes['ID'],
-            $key,
-            $value
-        );
+        update_post_meta( $this->attributes['ID'], $key, $value );
     }
-
     /**
      * Saves all meta values.
      * @since 1.0.0
