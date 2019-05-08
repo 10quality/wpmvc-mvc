@@ -6,4 +6,5 @@ php:
   - hhvm # on Trusty only
   - nightly
 
-script: vendor/bin/phpunit
+install:
+  - composer install --no-interaction
