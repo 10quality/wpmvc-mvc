@@ -21,7 +21,6 @@ interface PostCastable
      * @param mixed $object Array of attributes or a WP_Post.
      */
     public function from_post( $object );
-
     /**
      * Cast object into a WP_Post.
      * @since 1.0.0

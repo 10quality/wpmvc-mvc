@@ -20,7 +20,6 @@ interface Arrayable
      * @param array.
      */
     public function to_array();
-
     /**
      * Returns object converted to array for serialization.
      * @since 1.0.1
@@ -28,7 +27,6 @@ interface Arrayable
      * @param array.
      */
     public function __sleep();
-
     /**
      * Returns object converted to array.
      * @since 1.0.1

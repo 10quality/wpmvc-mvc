@@ -18,7 +18,6 @@ interface Metable
      * @since 1.0.0
      */
     public function load_meta();
-
     /**
      * Returns flag indicating if object has meta key.
      * @since 1.0.0
@@ -28,7 +27,6 @@ interface Metable
      * @return bool
      */
     public function has_meta( $key );
-
     /**
      * Gets value from meta.
      * @since 1.0.0
@@ -38,7 +36,6 @@ interface Metable
      * @return mixed.
      */
     public function get_meta( $key );
-
     /**
      * Sets meta value.
      * @since 1.0.0
@@ -47,7 +44,6 @@ interface Metable
      * @param mixed  $value Value.
      */
     public function set_meta( $key, $value );
-
     /**
      * Deletes meta.
      * @since 1.0.0
@@ -55,7 +51,6 @@ interface Metable
      * @param string $key Key.
      */
     public function delete_meta( $key );
-
     /**
      * Either adds or updates a meta.
      * @since 1.0.0
@@ -64,7 +59,6 @@ interface Metable
      * @param mixed  $value Value.
      */
     public function save_meta( $key, $value );
-
     /**
      * Saves all meta values.
      * @since 1.0.0
