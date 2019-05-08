@@ -11,13 +11,14 @@ namespace WPMVC\MVC\Traits;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 1.0.0
+ * @version 2.1.5
  */
 trait GenericModelTrait
 {
     /**
      * Getter function.
      * @since 1.0.0
+     * @since 2.1.5 Bug fixing.
      *
      * @param string $property
      *
@@ -29,6 +30,7 @@ trait GenericModelTrait
         $property = $this->get_alias_property( $property );
 
         if ( preg_match( '/field_/', $property )
+            && is_array( $this->attributes )
             && array_key_exists( preg_replace( '/field_/', '', $property ), $this->attributes )
         ) {
             return $this->attributes[preg_replace( '/field_/', '', $property )];
@@ -46,6 +48,7 @@ trait GenericModelTrait
     /**
      * Setter function.
      * @since 1.0.0
+     * @since 2.1.5 Bug fixing.
      *
      * @param string $property
      * @param mixed  $value
@@ -57,6 +60,9 @@ trait GenericModelTrait
         $property = $this->get_alias_property( $property );
 
         if ( preg_match( '/field_/', $property ) ) {
+
+            if ( ! is_array( $this->attributes ) )
+                $this->attributes = array();
 
             $this->attributes[preg_replace( '/field_/', '', $property )] = $value;
 

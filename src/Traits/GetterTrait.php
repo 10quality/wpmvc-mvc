@@ -9,13 +9,14 @@ namespace WPMVC\MVC\Traits;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 1.0.0
+ * @version 2.1.5
  */
 trait GetterTrait
 {
     /**
      * Getter.
      * @since 1.0.0
+     * @since 2.1.5 Bug fixing.
      *
      * @param string $property Property name.
      *
@@ -35,7 +36,7 @@ trait GetterTrait
             $value = $this->$function_name();
         }
 
-        if ( array_key_exists( $property, $this->attributes ) ) {
+        if ( is_array( $this->attributes ) &&  array_key_exists( $property, $this->attributes ) ) {
             $value = $this->attributes[$property];
         }
 
