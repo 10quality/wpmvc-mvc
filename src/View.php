@@ -26,7 +26,6 @@ class View
      * @var string
      */
     protected $alt_relative_path = '/assets/views/';
-
     /**
      * Default engine constructor.
      * @since 1.0.0
@@ -41,7 +40,6 @@ class View
         if ( $alt_relative_path !== null && is_string( $alt_relative_path ) )
             $this->alt_relative_path = $alt_relative_path;
     }
-
     /**
      * Returns view with the parameters passed by.
      * @since 1.0.0
@@ -73,7 +71,6 @@ class View
             return;
         }
     }
-
     /**
      * Displays view with the parameters passed by.
      * @since 1.0.0
@@ -85,7 +82,6 @@ class View
     {
         echo $this->get( $view, $params );
     }
-
     /**
      * Displays content as JSON.
      * @since 1.0.1

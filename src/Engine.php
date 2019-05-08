@@ -21,21 +21,18 @@ class Engine
      * @var string
      */
     protected $controllers_path;
-
     /**
      * Plugin namespace.
      * @since 1.0.0
      * @var string
      */
     protected $namespace;
-
     /**
      * View class object.
      * @since 1.0.0
      * @var string
      */
     protected $view;
-
     /**
      * Default engine constructor.
      * @since 1.0.0
@@ -52,7 +49,6 @@ class Engine
         $this->namespace = $namespace;
         $this->view = new View( $views_path, $alt_views_relative_path );
     }
-
     /**
      * Calls controller and function.
      * Echos return.
@@ -67,7 +63,6 @@ class Engine
         unset( $args[0] );
         echo $this->run( $controller_name, $args );
     }
-
     /**
      * Calls controller and function. With arguments are passed by.
      * Echos return.
@@ -133,7 +128,6 @@ class Engine
         require_once(  $this->controllers_path . $compo[0] . '.php' );
         $classname = sprintf( $this->namespace . '\Controllers\%s', $compo[0]);
         $controller = new $classname( $this->view );
-
         if ( !method_exists( $controller, $compo[1] ) ) {
             throw new Exception( sprintf( 'Controller action "%s" not found in %s.', $compo[1], $compo[0] ) );
         }

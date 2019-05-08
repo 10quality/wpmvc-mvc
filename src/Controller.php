@@ -19,14 +19,12 @@ abstract class Controller
      * @var object
      */
     protected $user;
-
     /**
      * View class object.
      * @since 1.0.0
      * @var object
      */
     protected $view;
-    
     /**
      * Default construct.
      * @since 1.0.0
