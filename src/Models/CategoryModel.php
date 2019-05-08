@@ -26,33 +26,28 @@ use WPMVC\MVC\Traits\ArrayCastTrait;
 abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, Stringable, Arrayable
 {
     use AliasTrait, CastTrait, SetterTrait, GetterTrait, ArrayCastTrait;
-    
     /**
      * Attributes in model.
      * @var array
      */
     protected $attributes = array();
-
     /**
      * Attributes and aliases hidden from print.
      * @var array
      */
     protected $hidden = array();
-
     /**
      * Meta data.
      * @since 1.0.0
      * @var array
      */
     protected $meta = array();
-
     /**
      * Flag that indicates if model should decode meta string values identified as JSON.
      * @since 2.1.1
      * @var bool
      */
     protected $decode_json_meta = true;
-
     /**
      * Default constructor.
      * @since 1.0.0
@@ -65,7 +60,6 @@ abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, 
             $this->load( $id );
         }
     }
-
     /**
      * Loads category data.
      * @since 1.0.0
@@ -79,19 +73,14 @@ abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, 
             $this->load_meta();
         }
     }
-
     /**
      * Deletes category.
      * @since 1.0.0
      */
     public function delete()
     {
-        wp_delete_term(
-            $this->name,
-            $this->taxonomy
-        );
+        wp_delete_term( $this->name, $this->taxonomy );
     }
-
     /**
      * Saves user.
      * Returns success flag.
@@ -101,18 +90,13 @@ abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, 
      */
     public function save()
     {
-        $id = wp_insert_term(
-            $this->name,
-            $this->taxonomy,
-            $this->attributes
-        );
+        $id = wp_insert_term( $this->name, $this->taxonomy, $this->attributes );
         if ( is_wp_error( $id ) )
             return false;
         $this->term_id = $id;
         $this->save_meta_all();
         return true;
     }
-
     /**
      * Loads user meta data.
      * @since 1.0.0
@@ -138,7 +122,6 @@ abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, 
             $this->attributes['taxonomy'] = 'category';
         }
     }
-
     /**
      * Returns flag indicating if object has meta key.
      * @since 1.0.0
@@ -151,7 +134,6 @@ abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, 
     {
         return array_key_exists( $key, $this->meta );
     }
-
     /**
      * Gets value from meta.
      * @since 1.0.0
@@ -164,7 +146,6 @@ abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, 
     {
        return $this->has_meta( $key ) ? $this->meta[$key] : null;
     }
-
     /**
      * Sets meta value.
      * @since 1.0.0
@@ -176,7 +157,6 @@ abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, 
     {
         $this->meta[$key] = $value;
     }
-
     /**
      * Deletes meta.
      * @since 1.0.0
@@ -186,12 +166,9 @@ abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, 
     public function delete_meta( $key )
     {
         if ( ! $this->has_meta( $key ) ) return;
-
         delete_term_meta( $this->term_id, $key );
-
         unset( $this->meta[$key] );
     }
-
     /**
      * Either adds or updates a meta.
      * @since 1.0.0
@@ -207,16 +184,11 @@ abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, 
             $this->set_meta($key, $value);
 
         try {
-            update_term_meta(
-                $this->term_id,
-                $key,
-                $value
-            );
+            update_term_meta( $this->term_id, $key, $value );
         } catch ( Exception $e ) {
             Log::error( $e );
         }
     }
-
     /**
      * Saves all meta values.
      * @since 1.0.0

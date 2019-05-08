@@ -23,35 +23,30 @@ use WPMVC\MVC\Traits\CastTrait;
 abstract class OptionModel implements Findable, Modelable, Arrayable, JSONable, Stringable
 {
     use GenericModelTrait, AliasTrait, CastTrait;
-
     /**
      * Option prefix.
      * @since 1.0.0
      * @var string
      */
     protected $prefix = 'model_';
-
     /**
      * Model id.
      * @since 1.0.0
      * @var string
      */
     protected $id;
-    
     /**
      * Attributes in model.
      * @since 1.0.0
      * @var array
      */
     protected $attributes = array();
-
     /**
      * Attributes and aliases hidden from print.
      * @since 1.0.0
      * @var array
      */
     protected $hidden = array();
-
     /**
      * Default constructor.
      * @since 1.0.0
@@ -61,7 +56,6 @@ abstract class OptionModel implements Findable, Modelable, Arrayable, JSONable, 
         if ( isset( $this->id ) && ! empty( $this->id )  )
             $this->load($this->id);
     }
-
     /**
      * Loads model from db.
      * @since 1.0.0
@@ -87,17 +81,10 @@ abstract class OptionModel implements Findable, Modelable, Arrayable, JSONable, 
     public function save()
     {
         if ( ! $this->is_loaded() ) return false;
-
         $this->fill_defaults();
-
-        update_option(
-            $this->prefix . $this->id,
-            json_encode( $this->attributes )
-        );
-
+        update_option( $this->prefix . $this->id, json_encode( $this->attributes ) );
         return true;
     }
-
     /**
      * Deletes current model in the db.
      * @since 1.0.0
@@ -107,12 +94,9 @@ abstract class OptionModel implements Findable, Modelable, Arrayable, JSONable, 
     public function delete()
     {
         if ( ! $this->is_loaded() ) return false;
-
         delete_option( $this->prefix . $this->id);
-
         return true;
     }
-
     /**
      * Returns flag indicating if object is loaded or not.
      * @since 1.0.0
@@ -123,7 +107,6 @@ abstract class OptionModel implements Findable, Modelable, Arrayable, JSONable, 
     {
         return !empty( $this->attributes );
     }
-
     /**
      * Fills default when about to create object
      * @since 1.0.0
@@ -131,9 +114,7 @@ abstract class OptionModel implements Findable, Modelable, Arrayable, JSONable, 
     private function fill_defaults()
     {
         if ( ! array_key_exists('ID', $this->attributes) ) {
-
             $this->attributes['ID'] = $this->id;
-
         }
     }
 }

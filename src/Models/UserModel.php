@@ -27,35 +27,30 @@ use WPMVC\MVC\Traits\ArrayCastTrait;
 abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stringable, Arrayable
 {
     use AliasTrait, CastTrait, SetterTrait, GetterTrait, ArrayCastTrait;
-
     /**
      * Attributes.
      * @since 1.0.0
      * @var array
      */
     protected $attributes = [];
-
     /**
      * Meta data.
      * @since 1.0.0
      * @var array
      */
     protected $meta = [];
-
     /**
      * Hidden properties.
      * @since 1.0.0
      * @var array
      */
     protected $hidden = [];
-
     /**
      * Flag that indicates if model should decode meta string values identified as JSON.
      * @since 2.1.1
      * @var bool
      */
     protected $decode_json_meta = true;
-
     /**
      * Default constructor.
      * @since 1.0.0
@@ -68,7 +63,6 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
             $this->load( $id );
         }
     }
-
     /**
      * Returns current user.
      * @since 1.0.0
@@ -79,7 +73,6 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
     {
         return self::find( get_current_user_id() );
     }
-
     /**
      * Loads user data.
      * @since 1.0.0
@@ -93,7 +86,6 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
             $this->load_meta();
         }
     }
-
     /**
      * Deletes user.
      * @since 1.0.0
@@ -102,7 +94,6 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
     {
         // TODO
     }
-
     /**
      * Saves user.
      * Returns success flag.
@@ -119,7 +110,6 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
         $this->save_meta_all();
         return true;
     }
-
     /**
      * Loads user meta data.
      * @since 1.0.0
@@ -143,7 +133,6 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
             }
         }
     }
-
     /**
      * Returns flag indicating if object has meta key.
      * @since 1.0.0
@@ -156,7 +145,6 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
     {
         return array_key_exists( $key, $this->meta );
     }
-
     /**
      * Gets value from meta.
      * @since 1.0.0
@@ -169,7 +157,6 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
     {
        return $this->has_meta( $key ) ? $this->meta[$key] : null;
     }
-
     /**
      * Sets meta value.
      * @since 1.0.0
@@ -181,7 +168,6 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
     {
         $this->meta[$key] = $value;
     }
-
     /**
      * Deletes meta.
      * @since 1.0.0
@@ -191,12 +177,9 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
     public function delete_meta( $key )
     {
         if ( ! $this->has_meta( $key ) ) return;
-
         delete_user_meta( $this->ID, $key );
-
         unset( $this->meta[$key] );
     }
-
     /**
      * Either adds or updates a meta.
      * @since 1.0.0
@@ -210,12 +193,7 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
     {   
         if ( $update_array )
             $this->meta[$key] = $value;
-
-        update_user_meta( 
-            $this->ID,
-            $key,
-            $value
-        );
+        update_user_meta( $this->ID, $key, $value );
     }
 
     /**

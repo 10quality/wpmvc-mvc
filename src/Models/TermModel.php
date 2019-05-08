@@ -27,42 +27,36 @@ use WPMVC\MVC\Traits\ArrayCastTrait;
 abstract class TermModel implements Modelable, Findable, Metable, JSONable, Stringable, Arrayable
 {
     use AliasTrait, CastTrait, SetterTrait, GetterTrait, ArrayCastTrait;
-    
     /**
      * Attributes in model.
      * @since 2.1.5
      * @var array
      */
     protected $attributes = array();
-
     /**
      * Attributes and aliases hidden from print.
      * @since 2.1.5
      * @var array
      */
     protected $hidden = array();
-
     /**
      * Meta data.
      * @since 2.1.5
      * @var array
      */
     protected $meta = array();
-
     /**
      * Taxonomy to use in model.
      * @since 2.1.5
      * @var string
      */
     protected $model_taxonomy = null;
-
     /**
      * Flag that indicates if model should decode meta string values identified as JSON.
      * @since 2.1.5
      * @var bool
      */
     protected $decode_json_meta = true;
-
     /**
      * Default constructor.
      * @since 1.0.0
@@ -76,7 +70,6 @@ abstract class TermModel implements Modelable, Findable, Metable, JSONable, Stri
             $this->model_taxonomy = $taxonomy;
         $this->load( $id );
     }
-
     /**
      * Loads category data.
      * @since 2.1.5
@@ -90,7 +83,6 @@ abstract class TermModel implements Modelable, Findable, Metable, JSONable, Stri
             $this->load_meta();
         }
     }
-
     /**
      * Loads term data.
      * @since 1.0.3
@@ -104,7 +96,6 @@ abstract class TermModel implements Modelable, Findable, Metable, JSONable, Stri
             $this->load_meta();
         }
     }
-
     /**
      * Loads terms from a WP_Term object.
      * @since 1.0.0
@@ -120,7 +111,6 @@ abstract class TermModel implements Modelable, Findable, Metable, JSONable, Stri
         $this->load_meta();
         return $this;
     }
-
     /**
      * Loads terms from an array.
      * @since 1.0.0
@@ -137,19 +127,14 @@ abstract class TermModel implements Modelable, Findable, Metable, JSONable, Stri
         $this->load_meta();
         return $this;
     }
-
     /**
      * Deletes category.
      * @since 2.1.5
      */
     public function delete()
     {
-        wp_delete_term(
-            $this->name,
-            $this->taxonomy
-        );
+        wp_delete_term( $this->name, $this->taxonomy );
     }
-
     /**
      * Saves user.
      * Returns success flag.
@@ -167,22 +152,14 @@ abstract class TermModel implements Modelable, Findable, Metable, JSONable, Stri
                     continue;
                 $data[$key] = $value;
             }
-            $id = wp_update_term(
-                $this->term_id,
-                $this->model_taxonomy,
-                $data
-            );
+            $id = wp_update_term( $this->term_id, $this->model_taxonomy, $data );
         } else {
             foreach ( $this->attributes as $key => $value ) {
                 if ( $key === 'name' )
                     continue;
                 $data[$key] = $value;
             }
-            $id = wp_insert_term(
-                $this->name,
-                $this->model_taxonomy,
-                $data
-            );
+            $id = wp_insert_term( $this->name, $this->model_taxonomy, $data );
         }
         if ( is_wp_error( $id ) )
             return false;
@@ -190,7 +167,6 @@ abstract class TermModel implements Modelable, Findable, Metable, JSONable, Stri
         $this->save_meta_all();
         return true;
     }
-
     /**
      * Loads user meta data.
      * @since 2.1.5
@@ -215,7 +191,6 @@ abstract class TermModel implements Modelable, Findable, Metable, JSONable, Stri
             $this->attributes['taxonomy'] = 'category';
         }
     }
-
     /**
      * Returns flag indicating if object has meta key.
      * @since 2.1.5
@@ -228,7 +203,6 @@ abstract class TermModel implements Modelable, Findable, Metable, JSONable, Stri
     {
         return array_key_exists( $key, $this->meta );
     }
-
     /**
      * Gets value from meta.
      * @since 2.1.5
@@ -241,7 +215,6 @@ abstract class TermModel implements Modelable, Findable, Metable, JSONable, Stri
     {
        return $this->has_meta( $key ) ? $this->meta[$key] : null;
     }
-
     /**
      * Sets meta value.
      * @since 2.1.5
@@ -253,7 +226,6 @@ abstract class TermModel implements Modelable, Findable, Metable, JSONable, Stri
     {
         $this->meta[$key] = $value;
     }
-
     /**
      * Deletes meta.
      * @since 2.1.5
@@ -263,12 +235,9 @@ abstract class TermModel implements Modelable, Findable, Metable, JSONable, Stri
     public function delete_meta( $key )
     {
         if ( ! $this->has_meta( $key ) ) return;
-
         delete_term_meta( $this->term_id, $key );
-
         unset( $this->meta[$key] );
     }
-
     /**
      * Either adds or updates a meta.
      * @since 2.1.5
@@ -280,18 +249,12 @@ abstract class TermModel implements Modelable, Findable, Metable, JSONable, Stri
     {   
         if ( $update_array )
             $this->set_meta($key, $value);
-
         try {
-            update_term_meta(
-                $this->term_id,
-                $key,
-                $value
-            );
+            update_term_meta( $this->term_id, $key, $value );
         } catch ( Exception $e ) {
             Log::error( $e );
         }
     }
-
     /**
      * Saves all meta values.
      * @since 2.1.5
