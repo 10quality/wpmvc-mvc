@@ -9,7 +9,7 @@ namespace WPMVC\MVC\Contracts;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 1.0.1
+ * @version 2.1.6
  */
 interface Arrayable
 {
@@ -20,13 +20,6 @@ interface Arrayable
      * @param array.
      */
     public function to_array();
-    /**
-     * Returns object converted to array for serialization.
-     * @since 1.0.1
-     *
-     * @param array.
-     */
-    public function __sleep();
     /**
      * Returns object converted to array.
      * @since 1.0.1
