@@ -10,7 +10,7 @@ use WPMVC\MVC\Models\PostModel as Model;
 
 /**
  * Attachment model.
- * Common Wordpress post type model.
+ * Common WordPress post type model.
  *
  * @author Alejandro Mostajo <http://about.me/amostajo>
  * @copyright 10Quality <http://www.10quality.com>

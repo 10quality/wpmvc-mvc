@@ -56,7 +56,7 @@ class Relationship
      */
     public $class;
     /**
-     * Property in class that is mapped to the indefier of the relationship model.
+     * Property in class that is mapped to the indentifier of the relationship model.
      * @since 2.0.4
      *
      * @var string
@@ -89,7 +89,7 @@ class Relationship
      *
      * @param object|Model &$parent  Parent class reference.
      * @param string|mixed $class    Relationship model class name.
-     * @param string       $property Property in class that is mapped to the indefier of the relationship model.
+     * @param string       $property Property in class that is mapped to the indentifier of the relationship model.
      * @param string       $method   Method in relationship model used to load it.
      * @param string       $type     Relationship type.
      */

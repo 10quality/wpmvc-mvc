@@ -100,7 +100,7 @@ abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, 
     /**
      * Loads user meta data.
      * @since 1.0.0
-     * @since 2.1.1 Uses wordpress serialization.
+     * @since 2.1.1 Uses WordPress serialization.
      */
     public function load_meta()
     {
@@ -172,8 +172,8 @@ abstract class CategoryModel implements Modelable, Findable, Metable, JSONable, 
     /**
      * Either adds or updates a meta.
      * @since 1.0.0
-     * @since 2.1.1 Uses wordpress serialization.
-     * @since 2.1.2 Removed serialization, already done by wp.
+     * @since 2.1.1 Uses WordPress serialization.
+     * @since 2.1.2 Removed serialization, already done by WordPress.
      *
      * @param string $key   Key.
      * @param mixed  $value Value.

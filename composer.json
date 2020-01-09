@@ -1,6 +1,6 @@
 {
     "name": "10quality/wpmvc-mvc",
-    "description": "Lightweight MVC for WPMVC (Wordpress MVC framework).",
+    "description": "Lightweight MVC for WPMVC (WordPress MVC framework).",
     "license": "MIT",
     "keywords": ["wordpress","mvc","lightweight","light"],
     "authors": [

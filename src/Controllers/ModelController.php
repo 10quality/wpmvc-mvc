@@ -24,7 +24,7 @@ class ModelController extends Controller
      */
     protected $model = '';
     /**
-     * Flag that indictes if model will save on autosave.
+     * Flag that indicates if model will save on autosave.
      * @since 1.0.0
      * @var bool
      */
