@@ -28,7 +28,7 @@ abstract class Controller
     /**
      * Default construct.
      * @since 1.0.0
-     * @since 2.0.4 Allows controller to be called prios wordpress init.
+     * @since 2.0.4 Allows controller to be called prior to WordPress init.
      *
      * @param object $view View class object.
      */
