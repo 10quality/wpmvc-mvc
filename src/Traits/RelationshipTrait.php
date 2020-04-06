@@ -13,7 +13,7 @@ use WPMVC\MVC\Models\Common\Attachment;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.3
+ * @version 2.1.7
  */
 trait RelationshipTrait
 {
@@ -41,7 +41,7 @@ trait RelationshipTrait
         // Get relationship
         $rel = call_user_func_array( array( &$this, $method ), array() );
         // Return on null
-        if ( $rel === null || !is_object( $rel ) )
+        if ( $rel === null || !is_object( $rel ) || !$rel instanceof Relationship )
             return;
         $property = $rel->property;
         // Return on null
@@ -69,7 +69,7 @@ trait RelationshipTrait
                     $this->rel[$rel->type][$rel->class]->object = $rel->object;
                     break;
                 case Relationship::HAS_MANY:
-                    $rel->object = new Collection;
+                    $rel->object = [];
                     foreach ( $this->$property as $id ) {
                         if ($rel->function && $rel->method === null) {
                             $rel->object[] = call_user_func_array( $rel->function, array( $id ) );

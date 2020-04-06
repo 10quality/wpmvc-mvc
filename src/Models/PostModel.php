@@ -25,7 +25,7 @@ use WPMVC\MVC\Traits\RelationshipTrait;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.5
+ * @version 2.1.7
  */
 abstract class PostModel implements Modelable, Findable, Metable, Parentable, PostCastable, Arrayable, JSONable, Stringable
 {
@@ -182,8 +182,6 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
     /**
      * Getter function.
      * @since 1.0.0
-     * @since 2.0.4 Added relationships.
-     * @since 2.1.5 Bug fixing.
      *
      * @param string $property
      *
@@ -193,7 +191,9 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
     {
         $property = $this->get_alias_property( $property );
         if ( method_exists( $this, $property ) ) {
-            return $this->get_relationship( $property );
+            $rel = $this->get_relationship( $property );
+            if ( $rel )
+                return $rel;
         }
         if ( preg_match( '/meta_/', $property ) ) {
             return $this->get_meta( preg_replace( '/meta_/', '', $property ) );

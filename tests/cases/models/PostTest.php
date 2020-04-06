@@ -16,8 +16,15 @@ class PostTest extends MVCTestCase
      */
     public function testConstruct()
     {
+        // Prepare
         $post = new Post;
-        $this->assertEquals($post->to_array(), []);
+        // Run
+        $array = $post->to_array();
+        $this->assertInternalType('array', $array);
+        $this->assertArrayHasKey('parent', $array);
+        $this->assertArrayHasKey('posts', $array);
+        $this->assertArrayHasKey('post_ids', $array);
+        $this->assertArrayHasKey('post_parent', $array);
     }
     /**
      * Tests model find.
@@ -77,6 +84,8 @@ class PostTest extends MVCTestCase
             'post_content',
             'parent',
             'post_parent',
+            'posts',
+            'post_ids',
         ]);
         $this->assertEquals(['ID' => 1], $post->to_array());
     }
@@ -92,7 +101,43 @@ class PostTest extends MVCTestCase
             'post_content',
             'parent',
             'post_parent',
+            'posts',
+            'post_ids',
         ]);
         $this->assertEquals('{"ID":1,"post_name":"hello-world"}', (string)$post);
+    }
+    /**
+     * Tests model casting to string / json.
+     * @group models
+     * @group relationships
+     */
+    public function testBelongsToRelationship()
+    {
+        // Prepare
+        $post = Post::find(1);
+        // Run
+        $parent = $post->parent;
+        // Assert
+        $this->assertInstanceOf(Post::class, $parent);
+        $this->assertEquals(15, $parent->ID);
+        $this->assertEquals('Hello World 1', $post->post_title);
+        $this->assertEquals('Parent', $parent->post_title);
+    }
+    /**
+     * Tests model casting to string / json.
+     * @group models
+     * @group relationships
+     */
+    public function testHasManyRelationship()
+    {
+        // Prepare
+        $post = Post::find(1);
+        // Run
+        $posts = $post->posts;
+        // Assert
+        $this->assertInternalType('array', $posts);
+        $this->assertInstanceOf(Post::class, $posts[0]);
+        $this->assertInstanceOf(Post::class, $posts[1]);
+        $this->assertInstanceOf(Post::class, $posts[2]);
     }
 }
