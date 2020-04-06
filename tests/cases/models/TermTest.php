@@ -6,12 +6,13 @@
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 1.2.5
+ * @version 2.1.7
  */
 class TermTest extends MVCTestCase
 {
     /**
      * Tests model construction.
+     * @group models
      */
     public function testConstruct()
     {
@@ -21,6 +22,7 @@ class TermTest extends MVCTestCase
     }
     /**
      * Tests model find.
+     * @group models
      */
     public function testFind()
     {
@@ -31,6 +33,7 @@ class TermTest extends MVCTestCase
     }
     /**
      * Tests model aliases.
+     * @group models
      */
     public function testAliases()
     {
@@ -46,6 +49,7 @@ class TermTest extends MVCTestCase
     }
     /**
      * Tests model meta.
+     * @group models
      */
     public function testMeta()
     {
@@ -61,6 +65,7 @@ class TermTest extends MVCTestCase
     }
     /**
      * Tests model casting to array.
+     * @group models
      */
     public function testCastingArray()
     {
@@ -74,6 +79,7 @@ class TermTest extends MVCTestCase
     }
     /**
      * Tests model casting to string / json.
+     * @group models
      */
     public function testCastingString()
     {
@@ -86,6 +92,7 @@ class TermTest extends MVCTestCase
     }
     /**
      * Tests model find.
+     * @group models
      */
     public function testFindBySlug()
     {
@@ -96,6 +103,7 @@ class TermTest extends MVCTestCase
     }
     /**
      * Tests model method.
+     * @group models
      */
     public function testAll()
     {
@@ -108,6 +116,7 @@ class TermTest extends MVCTestCase
     }
     /**
      * Tests model method.
+     * @group models
      */
     public function testFromTerm()
     {
@@ -118,6 +127,7 @@ class TermTest extends MVCTestCase
     }
     /**
      * Tests model method.
+     * @group models
      */
     public function testFromArray()
     {

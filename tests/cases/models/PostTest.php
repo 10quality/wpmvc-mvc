@@ -6,12 +6,13 @@
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 1.0.0
+ * @version 2.1.7
  */
 class PostTest extends MVCTestCase
 {
     /**
      * Tests model construction.
+     * @group models
      */
     public function testConstruct()
     {
@@ -20,6 +21,7 @@ class PostTest extends MVCTestCase
     }
     /**
      * Tests model find.
+     * @group models
      */
     public function testFind()
     {
@@ -30,6 +32,7 @@ class PostTest extends MVCTestCase
     }
     /**
      * Tests model aliases.
+     * @group models
      */
     public function testAliases()
     {
@@ -46,6 +49,7 @@ class PostTest extends MVCTestCase
     }
     /**
      * Tests model meta.
+     * @group models
      */
     public function testMeta()
     {
@@ -62,6 +66,7 @@ class PostTest extends MVCTestCase
     }
     /**
      * Tests model casting to array.
+     * @group models
      */
     public function testCastingArray()
     {
@@ -77,6 +82,7 @@ class PostTest extends MVCTestCase
     }
     /**
      * Tests model casting to string / json.
+     * @group models
      */
     public function testCastingString()
     {
