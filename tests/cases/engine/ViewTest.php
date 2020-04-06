@@ -12,6 +12,7 @@ class ViewTest extends MVCTestCase
 {
     /**
      * Tests view located in theme folder.
+     * @group views
      */
     public function testThemeView()
     {
@@ -19,6 +20,7 @@ class ViewTest extends MVCTestCase
     }
     /**
      * Tests view parameters.
+     * @group views
      */
     public function testViewParameters()
     {

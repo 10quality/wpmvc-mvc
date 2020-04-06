@@ -12,6 +12,7 @@ class EngineTest extends MVCTestCase
 {
     /**
      * Tests engine construction.
+     * @group engine
      */
     public function testConstruction()
     {
@@ -19,6 +20,7 @@ class EngineTest extends MVCTestCase
     }
     /**
      * Tests engine controller creation.
+     * @group engine
      */
     public function testController()
     {
@@ -26,6 +28,7 @@ class EngineTest extends MVCTestCase
     }
     /**
      * Tests engine controller creation.
+     * @group engine
      */
     public function testView()
     {

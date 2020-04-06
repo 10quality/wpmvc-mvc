@@ -12,6 +12,7 @@ class ModelTest extends MVCTestCase
 {
     /**
      * Tests model controller method.
+     * @group models
      */
     public function testMetabox()
     {
@@ -23,6 +24,7 @@ class ModelTest extends MVCTestCase
     }
     /**
      * Tests model controller method.
+     * @group models
      */
     public function testSave()
     {

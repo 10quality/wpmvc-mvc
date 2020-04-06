@@ -1,5 +1,6 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use WPMVC\MVC\Engine;
 
 /**
@@ -11,7 +12,7 @@ use WPMVC\MVC\Engine;
  * @package WPMVC\MVC
  * @version 1.0.0
  */
-abstract class MVCTestCase extends PHPUnit_Framework_TestCase
+abstract class MVCTestCase extends TestCase
 {
     /**
      * MVC engine.

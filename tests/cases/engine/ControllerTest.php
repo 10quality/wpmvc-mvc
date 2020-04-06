@@ -12,6 +12,7 @@ class ControllerTest extends MVCTestCase
 {
     /**
      * Tests parameters.
+     * @group controllers
      */
     public function testParameters()
     {
@@ -20,6 +21,7 @@ class ControllerTest extends MVCTestCase
     }
     /**
      * Tests call output (view handling).
+     * @group controllers
      */
     public function testCallOutput()
     {
@@ -27,6 +29,7 @@ class ControllerTest extends MVCTestCase
     }
     /**
      * Tests call output.
+     * @group controllers
      */
     public function testUser()
     {
