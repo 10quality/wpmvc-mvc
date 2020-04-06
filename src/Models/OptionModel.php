@@ -12,7 +12,7 @@ use WPMVC\MVC\Traits\AliasTrait;
 use WPMVC\MVC\Traits\CastTrait;
 
 /**
- * Abstract Model Class based on Wordpress Model.
+ * Abstract Model Class based on WordPress Model.
  *
  * @author Alejandro Mostajo <http://about.me/amostajo>
  * @copyright 10Quality <http://www.10quality.com>

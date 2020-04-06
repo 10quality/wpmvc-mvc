@@ -78,7 +78,7 @@ class Engine
      * @since 1.0.3 Renamed to exec to run, for WP theme validation pass.
      *
      * @param string $controller_name Controller name and method. i.e. DealController@show
-     * @param array  $args              Function args passed by. Arguments ready for call_user_func_array call.
+     * @param array  $args            Function args passed by. Arguments ready for call_user_func_array call.
      */
     public function call_args( $controller_name, $args )
     {
@@ -107,7 +107,7 @@ class Engine
      * @since 1.0.3 Renamed to exec to run, for WP theme validation pass.
      *
      * @param string $controller_name Controller name and method. i.e. DealController@show
-     * @param array  $args              Function args passed by. Arguments ready for call_user_func_array call.
+     * @param array  $args            Function args passed by. Arguments ready for call_user_func_array call.
      *
      * @return mixed
      */
@@ -124,7 +124,7 @@ class Engine
      * @since 2.1.5 Buffer implemented.
      *
      * @param string $controller_name Controller name and method. i.e. DealController@show
-     * @param array  $args               Controller parameters.
+     * @param array  $args            Controller parameters.
      */
     private function run( $controller_name, $args )
     {

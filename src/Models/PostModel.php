@@ -83,7 +83,7 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
      */
     protected $registry_labels = [];
     /**
-     * Wordpress support for during registration.
+     * WordPress support for during registration.
      * @since 1.0.1
      * @var array
      */

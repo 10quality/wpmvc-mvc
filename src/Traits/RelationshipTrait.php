@@ -95,11 +95,11 @@ trait RelationshipTrait
     /**
      * Returns relationship class.
      * 1-to-1 Relationship.
-     * Owner relatioship.
+     * Owner relationship.
      * @since 2.0.4
      *
      * @param string|mixed $class    Relationship model class name.
-     * @param string       $property Property in class that is mapped to the indefier of the relationship model.
+     * @param string       $property Property in class that is mapped to the indentifier of the relationship model.
      * @param string       $method   Method in relationship model used to load it.
      * @param string       $function Global function used to load relationship model.
      *
@@ -121,11 +121,11 @@ trait RelationshipTrait
     /**
      * Returns relationship class.
      * 1-to-1 Relationship.
-     * Owner relatioship.
+     * Owner relationship.
      * @since 2.0.4
      *
      * @param string|mixed $class    Relationship model class name.
-     * @param string       $property Property in class that is mapped to the indefier of the relationship model.
+     * @param string       $property Property in class that is mapped to the indentifier of the relationship model.
      * @param string       $method   Method in relationship model used to load it.
      * @param string       $function Global function used to load relationship model.
      *
@@ -147,11 +147,11 @@ trait RelationshipTrait
     /**
      * Returns relationship class.
      * 1-to-N Relationship.
-     * Owner relatioship.
+     * Owner relationship.
      * @since 2.0.4
      *
      * @param string|mixed $class    Relationship model class name.
-     * @param string       $property Property in class that is mapped to the indefier of the relationship model.
+     * @param string       $property Property in class that is mapped to the indentifier of the relationship model.
      * @param string       $method   Method in relationship model used to load it.
      * @param string       $function Global function used to load relationship model.
      *
@@ -172,7 +172,7 @@ trait RelationshipTrait
     }
     /**
      * Returns relationship class.
-     * Standard Wordpress featured attachment relationship.
+     * Standard WordPress featured attachment relationship.
      * @since 2.0.4
      * @since 2.1.3 Remove `::class` to support php 5.4.
      *
