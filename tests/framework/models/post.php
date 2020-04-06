@@ -39,9 +39,13 @@ class Post extends PostModel
     {
         $this->hidden = $hidden;
     }
-    public static function echo()
+    public static function echo( $string )
     {
-        return 'echo';
+        return $string;
+    }
+    protected function protect( $var )
+    {
+        return $var;
     }
     protected function method()
     {

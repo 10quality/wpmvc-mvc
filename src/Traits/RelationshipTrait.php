@@ -2,6 +2,7 @@
 
 namespace WPMVC\MVC\Traits;
 
+use ReflectionMethod;
 use WPMVC\MVC\Collection;
 use WPMVC\MVC\Models\Relationship;
 use WPMVC\MVC\Models\Common\Attachment;
@@ -13,7 +14,7 @@ use WPMVC\MVC\Models\Common\Attachment;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.7
+ * @version 2.1.8
  */
 trait RelationshipTrait
 {
@@ -27,7 +28,6 @@ trait RelationshipTrait
         'has_many'      => array(),
         'belongs_to'    => array(),
     );
-
     /**
      * Returns object or objects associated with relationship.
      * @since 2.0.4
@@ -38,6 +38,9 @@ trait RelationshipTrait
      */
     private function get_relationship( $method )
     {
+        $refletor = new ReflectionMethod( $this, $method );
+        if ( $refletor->isPublic() || count( $refletor->getParameters() ) )
+            return;
         // Get relationship
         $rel = call_user_func_array( array( &$this, $method ), array() );
         // Return on null

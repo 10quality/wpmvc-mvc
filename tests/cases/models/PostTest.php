@@ -6,7 +6,7 @@
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.7
+ * @version 2.1.8
  */
 class PostTest extends MVCTestCase
 {
@@ -139,5 +139,29 @@ class PostTest extends MVCTestCase
         $this->assertInstanceOf(Post::class, $posts[0]);
         $this->assertInstanceOf(Post::class, $posts[1]);
         $this->assertInstanceOf(Post::class, $posts[2]);
+    }
+    /**
+     * Tests model casting to string / json.
+     * @group models
+     * @group relationships
+     */
+    public function testHasManyRelationshipCasting()
+    {
+        // Prepare
+        $post = Post::find(1);
+        $post->setHidden([
+            'ID',
+            'post_title',
+            'post_name',
+            'post_content',
+            'parent',
+            'post_parent',
+            'post_ids',
+        ]);
+        // Run
+        $array = $post->to_array();
+        // Assert
+        $this->assertInternalType('array', $array);
+        $this->assertCount(1, $array);
     }
 }
