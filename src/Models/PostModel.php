@@ -230,9 +230,11 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
      */
     private function fill_defaults()
     {
-        if ( ! array_key_exists('ID', $this->attributes) ) {
-            $this->attributes['post_type'] = $this->type;
-            $this->attributes['post_status'] = $this->status;
+        if ( !array_key_exists( 'ID', $this->attributes ) ) {
+            if ( !array_key_exists( 'post_type', $this->attributes ) )
+                $this->attributes['post_type'] = $this->type;
+            if ( !array_key_exists( 'post_status', $this->attributes ) )
+                $this->attributes['post_status'] = $this->status;
         }
     }
 }
