@@ -25,7 +25,7 @@ use WPMVC\MVC\Traits\RelationshipTrait;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.7
+ * @version 2.1.9
  */
 abstract class PostModel implements Modelable, Findable, Metable, Parentable, PostCastable, Arrayable, JSONable, Stringable
 {
@@ -187,8 +187,9 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
      *
      * @return mixed
      */
-    public function __get( $property )
+    public function &__get( $property )
     {
+        $value = null;
         $property = $this->get_alias_property( $property );
         if ( method_exists( $this, $property ) ) {
             $rel = $this->get_relationship( $property );
@@ -196,10 +197,10 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
                 return $rel;
         }
         if ( preg_match( '/meta_/', $property ) ) {
-            return $this->get_meta( preg_replace( '/meta_/', '', $property ) );
+            $value = $this->get_meta( preg_replace( '/meta_/', '', $property ) );
         } else if ( preg_match( '/func_/', $property ) ) {
             $function_name = preg_replace( '/func_/', '', $property );
-            return $this->$function_name();
+            $value = $this->$function_name();
         } if ( is_array( $this->attributes ) && array_key_exists( $property, $this->attributes ) ) {
             return $this->attributes[$property];
         } else {
@@ -217,12 +218,11 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
                 case 'registry_labels':
                     return $this->$property;
                 case 'post_content_filtered':
-                    $content = apply_filters( 'the_content', $this->attributes[$property] );
-                    $content = str_replace( ']]>', ']]&gt;', $content );
-                    return $content;
+                    $value = apply_filters( 'the_content', $this->attributes[$property] );
+                    $value = str_replace( ']]>', ']]&gt;', $content );
             }
         }
-        return null;
+        return $value;
     }
     /**
      * Fills default when about to create object
