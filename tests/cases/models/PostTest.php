@@ -189,7 +189,7 @@ class PostTest extends MVCTestCase
         $this->assertCount(1, $array);
     }
     /**
-     * Tests model meta.
+     * Tests model saving.
      * @group models
      * @group posts
      */
@@ -208,7 +208,7 @@ class PostTest extends MVCTestCase
         $this->assertEquals('Test', $post->post_content);
     }
     /**
-     * Tests model meta.
+     * Tests model saving.
      * @group models
      * @group posts
      */
@@ -223,7 +223,7 @@ class PostTest extends MVCTestCase
         $this->assertNull($post->ID);
     }
     /**
-     * Tests model meta.
+     * Tests model saving.
      * @group models
      * @group posts
      */
@@ -237,5 +237,57 @@ class PostTest extends MVCTestCase
         // Assert
         $this->assertTrue($return);
         $this->assertEquals($post_id, $post->ID);
+    }
+    /**
+     * Tests model construct alternative.
+     * @group models
+     * @group posts
+     */
+    public function testConstructWithAttributes()
+    {
+        // Prepare
+        $attributes = [
+            'ID' => 8,
+            'post_content' => 'test',
+            'post_parent' => 2,
+            'post_name' => 'phpunit',
+        ];
+        // Run
+        $post = new Post($attributes);
+        // Assert
+        $this->assertNotNull($post->ID);
+        $this->assertNotNull($post->post_content);
+        $this->assertNotNull($post->post_parent);
+        $this->assertNotNull($post->post_name);
+        $this->assertInternalType('int', $post->ID);
+        $this->assertInternalType('string', $post->post_content);
+        $this->assertInternalType('int', $post->post_parent);
+        $this->assertInternalType('string', $post->post_name);
+        $this->assertEquals(8, $post->ID);
+        $this->assertEquals('test', $post->post_content);
+        $this->assertEquals(2, $post->post_parent);
+        $this->assertEquals('phpunit', $post->post_name);
+    }
+    /**
+     * Tests model construct alternative.
+     * @group models
+     * @group posts
+     */
+    public function testConstructWithPost()
+    {
+        // Prepare
+        $wp_post = new WP_Post(10);
+        // Run
+        $post = new Post($wp_post);
+        // Assert
+        $this->assertNotNull($post->ID);
+        $this->assertNotNull($post->post_title);
+        $this->assertNotNull($post->post_name);
+        $this->assertInternalType('int', $post->ID);
+        $this->assertInternalType('string', $post->post_title);
+        $this->assertInternalType('string', $post->post_name);
+        $this->assertEquals(10, $post->ID);
+        $this->assertEquals('Hello World 10', $post->post_title);
+        $this->assertEquals('hello-world', $post->post_name);
     }
 }

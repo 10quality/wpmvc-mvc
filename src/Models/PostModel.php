@@ -2,6 +2,7 @@
 
 namespace WPMVC\MVC\Models;
 
+use WP_Post;
 use WPMVC\MVC\Contracts\Modelable;
 use WPMVC\MVC\Contracts\Findable;
 use WPMVC\MVC\Contracts\Metable;
@@ -122,11 +123,20 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
     /**
      * Default constructor.
      * @since 1.0.0
+     * 
+     * @param int|array|\WP_Post $post
      */
-    public function __construct( $id = 0 )
+    public function __construct( $post = 0 )
     {
-        if ( ! empty( $id )  )
-            $this->load( $id );
+        if ( $post ) {
+            if ( is_numeric( $post ) ) {
+                $this->load( $post );
+            } elseif ( is_array( $post ) ) {
+                $this->load_attributes( $post );
+            } elseif ( is_object( $post ) && is_a( $post, 'WP_Post' ) ) {
+                $this->load_wp_post( $post );
+            }
+        }
     }
     /**
      * Loads model from db.
@@ -136,8 +146,28 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
      */
     public function load( $id )
     {
-        $this->attributes = get_post( $id, ARRAY_A );
+        $this->load_attributes( get_post( $id, ARRAY_A ) );
+    }
+    /**
+     * Loads model from db.
+     * @since 2.1.10
+     *
+     * @param array $attributes Rercord attributes.
+     */
+    public function load_attributes( $attributes )
+    {
+        $this->attributes = $attributes;
         $this->load_meta();
+    }
+    /**
+     * Loads model from db.
+     * @since 2.1.10
+     *
+     * @param \WP_Post $post Post object.
+     */
+    public function load_wp_post( WP_Post $post )
+    {
+        $this->load_attributes( (array)$post );
     }
     /**
      * Saves current model in the db.
