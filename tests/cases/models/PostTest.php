@@ -6,18 +6,34 @@
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.8
+ * @version 2.1.10
  */
 class PostTest extends MVCTestCase
 {
     /**
      * Tests model construction.
      * @group models
+     * @group posts
      */
     public function testConstruct()
     {
         // Prepare
         $post = new Post;
+        // Run
+        $array = $post->to_array();
+        $this->assertInternalType('array', $array);
+        $this->assertArrayHasKey('posts', $array);
+        $this->assertArrayHasKey('post_ids', $array);
+    }
+    /**
+     * Tests model construction.
+     * @group models
+     * @group posts
+     */
+    public function testParent()
+    {
+        // Prepare
+        $post = Post::find(1);
         // Run
         $array = $post->to_array();
         $this->assertInternalType('array', $array);
@@ -29,6 +45,7 @@ class PostTest extends MVCTestCase
     /**
      * Tests model find.
      * @group models
+     * @group posts
      */
     public function testFind()
     {
@@ -40,6 +57,7 @@ class PostTest extends MVCTestCase
     /**
      * Tests model aliases.
      * @group models
+     * @group posts
      */
     public function testAliases()
     {
@@ -57,6 +75,7 @@ class PostTest extends MVCTestCase
     /**
      * Tests model meta.
      * @group models
+     * @group posts
      */
     public function testMeta()
     {
@@ -74,6 +93,7 @@ class PostTest extends MVCTestCase
     /**
      * Tests model casting to array.
      * @group models
+     * @group posts
      */
     public function testCastingArray()
     {
@@ -92,6 +112,7 @@ class PostTest extends MVCTestCase
     /**
      * Tests model casting to string / json.
      * @group models
+     * @group posts
      */
     public function testCastingString()
     {
@@ -109,6 +130,7 @@ class PostTest extends MVCTestCase
     /**
      * Tests model casting to string / json.
      * @group models
+     * @group posts
      * @group relationships
      */
     public function testBelongsToRelationship()
@@ -126,6 +148,7 @@ class PostTest extends MVCTestCase
     /**
      * Tests model casting to string / json.
      * @group models
+     * @group posts
      * @group relationships
      */
     public function testHasManyRelationship()
@@ -143,6 +166,7 @@ class PostTest extends MVCTestCase
     /**
      * Tests model casting to string / json.
      * @group models
+     * @group posts
      * @group relationships
      */
     public function testHasManyRelationshipCasting()
@@ -163,5 +187,55 @@ class PostTest extends MVCTestCase
         // Assert
         $this->assertInternalType('array', $array);
         $this->assertCount(1, $array);
+    }
+    /**
+     * Tests model meta.
+     * @group models
+     * @group posts
+     */
+    public function testSave()
+    {
+        // Prepare
+        $post = new Post;
+        $post->post_content = 'Test';
+        // Run
+        $return = $post->save();
+        // Assert
+        $this->assertTrue($return);
+        $this->assertNotNull($post->ID);
+        $this->assertInternalType('int', $post->ID);
+        $this->assertNotEmpty($post->ID);
+        $this->assertEquals('Test', $post->post_content);
+    }
+    /**
+     * Tests model meta.
+     * @group models
+     * @group posts
+     */
+    public function testSaveEmpty()
+    {
+        // Prepare
+        $post = new Post;
+        // Run
+        $return = $post->save();
+        // Assert
+        $this->assertFalse($return);
+        $this->assertNull($post->ID);
+    }
+    /**
+     * Tests model meta.
+     * @group models
+     * @group posts
+     */
+    public function testSaveUpdate()
+    {
+        // Prepare
+        $post_id = 3;
+        $post = Post::find($post_id);
+        // Run
+        $return = $post->save();
+        // Assert
+        $this->assertTrue($return);
+        $this->assertEquals($post_id, $post->ID);
     }
 }

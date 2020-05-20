@@ -3,6 +3,7 @@
 require_once __DIR__.'/classes/wp_user.php';
 require_once __DIR__.'/classes/wp_post.php';
 require_once __DIR__.'/classes/wp_term.php';
+require_once __DIR__.'/classes/wp_error.php';
 
 /**
  * WordPress compatibility functions.
@@ -40,9 +41,17 @@ function get_post($id, $output = ARRAY_A)
     $post = new WP_Post($id);
     return $output === ARRAY_A ? (array)$post : $post;
 }
-function wp_insert_post($args, &$error)
+function wp_insert_post($args)
 {
-    $error = isset($args->ID) && in_array($args->ID, [1,2,3,4,5,6,7]);
+    return isset($args['ID']) ? new WP_Error : rand(1,20);
+}
+function wp_update_post($args)
+{
+    return !isset($args['ID']) || $args['ID'] > 20 ? new WP_Error : $args['ID'];
+}
+function wp_cache_delete()
+{
+    return true;
 }
 function wp_delete_post($ID, $force = true)
 {
@@ -60,6 +69,10 @@ function delete_user_meta($ID, $key)
 {
     return true;
 }
+function update_post_meta($ID, $key, $value)
+{
+    return true;
+}
 function update_user_meta($ID, $key, $value)
 {
     return true;
@@ -70,7 +83,7 @@ function wp_insert_user($data)
 }
 function is_wp_error($error)
 {
-    return is_a($error, 'WP_Error');
+    return is_a($error, WP_Error::class);
 }
 function get_option($key)
 {

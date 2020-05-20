@@ -25,7 +25,7 @@ use WPMVC\MVC\Traits\RelationshipTrait;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.9
+ * @version 2.1.10
  */
 abstract class PostModel implements Modelable, Findable, Metable, Parentable, PostCastable, Arrayable, JSONable, Stringable
 {
@@ -126,7 +126,7 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
     public function __construct( $id = 0 )
     {
         if ( ! empty( $id )  )
-            $this->load($id);
+            $this->load( $id );
     }
     /**
      * Loads model from db.
@@ -143,19 +143,21 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
      * Saves current model in the db.
      * @since 1.0.0
      *
-     * @return mixed.
+     * @return bool|\WP_Error.
      */
     public function save()
     {
         if ( ! $this->is_loaded() ) return false;
         $this->fill_defaults();
-        $error = null;
-        $id = wp_insert_post( $this->attributes, $error );
-        if ( ! empty( $id ) ) {
-            $this->attributes['ID'] = $id;
+        $return = isset( $this->attributes['ID'] )
+            ? wp_update_post( $this->attributes, true )
+            : wp_insert_post( $this->attributes, true );
+        if ( !is_wp_error( $return ) && !empty( $return ) ) {
+            $this->attributes['ID'] = $return;
             $this->save_meta_all();
+            $this->clear_wp_cache();
         }
-        return $error === false ? true : $error;
+        return is_wp_error( $return ) ? $return : !empty( $return );
     }
     /**
      * Deletes current model in the db.
@@ -236,5 +238,14 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
             if ( !array_key_exists( 'post_status', $this->attributes ) )
                 $this->attributes['post_status'] = $this->status;
         }
+    }
+    /**
+     * Clears WP cache.
+     * @since 2.1.10
+     */
+    private function clear_wp_cache()
+    {
+        if ( $this->ID )
+            wp_cache_delete( $this->ID, 'posts' );
     }
 }

@@ -10,9 +10,7 @@ class Post extends PostModel
     protected $aliases = [
         'post_ids' => 'func_get_post_ids',
     ];
-    protected $attributes = [
-        'post_parent' => 2,
-    ];
+    protected $attributes = [];
     /*
     protected function image()
     {
