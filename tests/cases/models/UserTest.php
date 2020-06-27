@@ -17,7 +17,7 @@ class UserTest extends MVCTestCase
     public function testConstruct()
     {
         $user = new User;
-        $this->assertEquals($user->to_array(), []);
+        $this->assertEquals([], $user->to_array());
     }
     /**
      * Tests model find.
@@ -26,8 +26,8 @@ class UserTest extends MVCTestCase
     public function testFind()
     {
         $user = User::find(404);
-        $this->assertEquals($user->ID, 404);
-        $this->assertEquals($user->first_name, 'John');
+        $this->assertEquals(404, $user->ID);
+        $this->assertEquals('John', $user->first_name);
     }
     /**
      * Tests model aliases.
@@ -40,11 +40,10 @@ class UserTest extends MVCTestCase
             'firstname' => 'first_name',
             'fullname'  => 'func_fullname',
         ]);
-        $this->assertEquals($user->firstname, 'John');
-        $this->assertEquals($user->fullname, 'John Doe');
+        $this->assertEquals('John', $user->firstname);
+        $this->assertEquals('John Doe', $user->fullname);
         $user->firstname = 'test';
-        $this->assertEquals($user->firstname, 'test');
-        $this->assertEquals($user->first_name, 'test');
+        $this->assertEquals('test', $user->firstname);
     }
     /**
      * Tests model meta.
@@ -98,6 +97,6 @@ class UserTest extends MVCTestCase
             'last_name',
             'user_email',
         ]);
-        $this->assertEquals((string)$user, '{"ID":404,"user_login":"admin"}');
+        $this->assertEquals('{"ID":404,"user_login":"admin"}', (string)$user);
     }
 }

@@ -79,6 +79,7 @@ function update_user_meta($ID, $key, $value)
 }
 function wp_insert_user($data)
 {
+    $GLOBALS['data'] = $data;
     return true;
 }
 function wp_update_user($data)
@@ -98,6 +99,7 @@ function get_option($key)
 }
 function update_option($key, $value)
 {
+    $GLOBALS['data'] = ['option_name' => $key, 'option_value' => $value];
     return true;
 }
 function delete_option($key)
@@ -191,5 +193,6 @@ function get_term_by( $prop, $slug, $tax )
 }
 function wp_update_term($id, $tax, $args)
 {
+    $GLOBALS['data'] = $args;
     return $id;
 }
