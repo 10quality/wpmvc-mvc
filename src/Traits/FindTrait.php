@@ -2,8 +2,6 @@
 
 namespace WPMVC\MVC\Traits;
 
-use WPMVC\MVC\Collection as Collection;
-
 /**
  * Trait related to all find functionality of a model.
  *
@@ -11,20 +9,22 @@ use WPMVC\MVC\Collection as Collection;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 1.0.0
+ * @version 2.1.11
  */
 trait FindTrait
 {
-
     /**
      * Finds record based on an ID.
      * @since 1.0.0
      *
      * @param mixed $id Record ID.
+     * 
+     * @return object|null
      */
     public static function find( $id = 0 )
     {
-        return new self($id);
+        $model = new self( $id );
+        return $model->has_trace() ? $model : null;
     }
     /**
      * Returns an array collection of the implemented class based on parent ID.
@@ -37,7 +37,7 @@ trait FindTrait
     public static function from( $id )
     {
         if ( empty( $id ) ) return;
-        $output = new Collection();
+        $output = [];
         $reference = new self();
         $results = get_children( array(
             'post_parent' => $id,

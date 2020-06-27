@@ -217,4 +217,16 @@ class UserTest extends MVCTestCase
         $this->assertInternalType('bool', $deleted);
         $this->assertFalse($deleted);
     }
+    /**
+     * Tests empty user delete attempt.
+     * @group models
+     * @group user
+     */
+    public function testNonExistantUser()
+    {
+        // Prepare and run
+        $user = User::find(5000100);
+        // Assert
+        $this->assertNull($user);
+    }
 }

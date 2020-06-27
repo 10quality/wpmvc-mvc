@@ -10,6 +10,7 @@ use WPMVC\MVC\Contracts\Arrayable;
 use WPMVC\MVC\Contracts\JSONable;
 use WPMVC\MVC\Contracts\Stringable;
 use WPMVC\MVC\Contracts\Metable;
+use WPMVC\MVC\Contracts\Traceable;
 use WPMVC\MVC\Traits\AliasTrait;
 use WPMVC\MVC\Traits\CastTrait;
 use WPMVC\MVC\Traits\SetterTrait;
@@ -25,7 +26,7 @@ use WPMVC\MVC\Traits\ArrayCastTrait;
  * @package WPMVC\MVC
  * @version 2.1.11
  */
-abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stringable, Arrayable
+abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stringable, Arrayable, Traceable
 {
     use AliasTrait, CastTrait, SetterTrait, GetterTrait, ArrayCastTrait;
     /**
@@ -88,8 +89,10 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
      * 
      * @param \WP_User $user
      */
-    public function load_wp_user( WP_User $user )
+    public function load_wp_user( $user )
     {
+        if ( !is_object( $user ) || !$user instanceof WP_User )
+            return;
         $this->__wp_user = $user;
         if ( $this->__wp_user ) {
             $this->attributes = (array)$this->__wp_user->data;
@@ -239,5 +242,15 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
             if ( in_array( 'meta_' . $key, $this->aliases ) )
                 $this->save_meta( $key, $value, false );
         }
+    }
+    /**
+     * Returns flag indicating if model has a trace in the database (an ID).
+     * @since 2.1.11
+     *
+     * @param bool
+     */
+    public function has_trace()
+    {
+        return $this->ID !== null;
     }
 }

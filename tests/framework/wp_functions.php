@@ -34,7 +34,7 @@ function get_userdata($id)
 }
 function get_user_by($key, $id)
 {
-    return new WP_User($id);
+    return $id > 100000 ? false : new WP_User($id);
 }
 function get_post($id, $output = ARRAY_A)
 {

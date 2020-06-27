@@ -7,6 +7,7 @@ use WPMVC\MVC\Contracts\Findable;
 use WPMVC\MVC\Contracts\Arrayable;
 use WPMVC\MVC\Contracts\JSONable;
 use WPMVC\MVC\Contracts\Stringable;
+use WPMVC\MVC\Contracts\Traceable;
 use WPMVC\MVC\Traits\GenericModelTrait;
 use WPMVC\MVC\Traits\AliasTrait;
 use WPMVC\MVC\Traits\CastTrait;
@@ -20,7 +21,7 @@ use WPMVC\MVC\Traits\CastTrait;
  * @package WPMVC\MVC
  * @version 1.0.0
  */
-abstract class OptionModel implements Findable, Modelable, Arrayable, JSONable, Stringable
+abstract class OptionModel implements Findable, Modelable, Arrayable, JSONable, Stringable, Traceable
 {
     use GenericModelTrait, AliasTrait, CastTrait;
     /**
@@ -106,6 +107,16 @@ abstract class OptionModel implements Findable, Modelable, Arrayable, JSONable, 
     public function is_loaded()
     {
         return !empty( $this->attributes );
+    }
+    /**
+     * Returns flag indicating if model has a trace in the database (an ID).
+     * @since 2.1.11
+     *
+     * @param bool
+     */
+    public function has_trace()
+    {
+        return true;
     }
     /**
      * Fills default when about to create object

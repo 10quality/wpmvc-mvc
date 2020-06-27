@@ -11,6 +11,7 @@ use WPMVC\MVC\Contracts\PostCastable;
 use WPMVC\MVC\Contracts\Arrayable;
 use WPMVC\MVC\Contracts\JSONable;
 use WPMVC\MVC\Contracts\Stringable;
+use WPMVC\MVC\Contracts\Traceable;
 use WPMVC\MVC\Traits\MetaTrait;
 use WPMVC\MVC\Traits\PostCastTrait;
 use WPMVC\MVC\Traits\CastTrait;
@@ -26,7 +27,7 @@ use WPMVC\MVC\Traits\RelationshipTrait;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.10
+ * @version 2.1.11
  */
 abstract class PostModel implements Modelable, Findable, Metable, Parentable, PostCastable, Arrayable, JSONable, Stringable
 {
@@ -210,6 +211,16 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
     public function is_loaded()
     {
         return !empty( $this->attributes );
+    }
+    /**
+     * Returns flag indicating if model has a trace in the database (an ID).
+     * @since 2.1.11
+     *
+     * @param bool
+     */
+    public function has_trace()
+    {
+        return $this->ID !== null;
     }
     /**
      * Getter function.
