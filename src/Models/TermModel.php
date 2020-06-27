@@ -80,8 +80,11 @@ abstract class TermModel implements Modelable, Findable, Metable, JSONable, Stri
     public function load( $id )
     {
         if ( ! empty( $id ) ) {
-            $this->attributes = get_term( $id, $this->model_taxonomy, ARRAY_A );
-            $this->load_meta();
+            $attributes = get_term( $id, $this->model_taxonomy, ARRAY_A );
+            if ( !is_wp_error( $attributes ) && !empty( $attributes ) ) {
+                $this->attributes = $attributes;
+                $this->load_meta();
+            }
         }
     }
     /**
@@ -93,8 +96,11 @@ abstract class TermModel implements Modelable, Findable, Metable, JSONable, Stri
     public function load_by_slug( $slug )
     {
         if ( ! empty( $slug ) ) {
-            $this->attributes = get_term_by( 'slug', $slug, $this->model_taxonomy, ARRAY_A );
-            $this->load_meta();
+            $attributes = get_term_by( 'slug', $slug, $this->model_taxonomy, ARRAY_A );
+            if ( !is_wp_error( $attributes ) && !empty( $attributes ) ) {
+                $this->attributes = $attributes;
+                $this->load_meta();
+            }
         }
     }
     /**

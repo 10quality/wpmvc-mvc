@@ -222,7 +222,7 @@ class UserTest extends MVCTestCase
      * @group models
      * @group user
      */
-    public function testNonExistantUser()
+    public function testNonExistent()
     {
         // Prepare and run
         $user = User::find(5000100);

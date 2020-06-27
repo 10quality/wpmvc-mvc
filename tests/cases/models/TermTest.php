@@ -6,7 +6,7 @@
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.7
+ * @version 2.1.11
  */
 class TermTest extends MVCTestCase
 {
@@ -135,5 +135,29 @@ class TermTest extends MVCTestCase
         $term->from_array(['term_id' => 55, 'taxonomy' => 'test']);
         $this->assertEquals(55, $term->term_id);
         $this->assertEquals('test', $term->taxonomy);
+    }
+    /**
+     * Tests empty post.
+     * @group models
+     * @group terms
+     */
+    public function testNonExistent()
+    {
+        // Prepare and run
+        $model = Term::find(5000100);
+        // Assert
+        $this->assertNull($model);
+    }
+    /**
+     * Tests empty post.
+     * @group models
+     * @group terms
+     */
+    public function testNonExistentBy()
+    {
+        // Prepare and run
+        $model = Term::find_by_slug('error');
+        // Assert
+        $this->assertNull($model);
     }
 }

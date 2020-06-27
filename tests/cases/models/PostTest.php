@@ -295,7 +295,7 @@ class PostTest extends MVCTestCase
      * @group models
      * @group posts
      */
-    public function testNonExistant()
+    public function testNonExistent()
     {
         // Prepare and run
         $model = Post::find(5000100);

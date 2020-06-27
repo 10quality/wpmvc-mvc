@@ -11,7 +11,7 @@ use WPMVC\MVC\Collection as Collection;
  * @copyright 10 Quality Studio <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.5
+ * @version 2.1.11
  */
 trait FindTermTrait
 {
@@ -21,10 +21,13 @@ trait FindTermTrait
      *
      * @param mixed  $id       Record ID.
      * @param string $taxonomy Taxonomy.
+     * 
+     * @return object|null
      */
     public static function find( $id = 0, $taxonomy = null )
     {
-        return new self( $taxonomy, $id );
+        $model = new self( $taxonomy, $id );
+        return $model->has_trace() ? $model : null;
     }
     /**
      * Finds record based on a slug.
@@ -32,12 +35,14 @@ trait FindTermTrait
      *
      * @param string $slug     Term slug.
      * @param string $taxonomy Taxonomy.
+     * 
+     * @return object|null
      */
     public static function find_by_slug( $slug = 0, $taxonomy = null )
     {
         $model = new self( $taxonomy, 0 );
         $model->load_by_slug( $slug );
-        return $model;
+        return $model->has_trace() ? $model : null;
     }
     /**
      * Returns all terms found in the db.

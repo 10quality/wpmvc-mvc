@@ -193,10 +193,12 @@ function get_terms( $tax, $args )
 }
 function get_term( $id, $tax )
 {
+    if ( $id > 1000000 ) return null;
     return ['term_id' => $id, 'slug' => 'term-'.$id, 'name' => 'Term ID:'.$id, 'taxonomy' => $tax];
 }
 function get_term_by( $prop, $slug, $tax )
 {
+    if ( $slug === 'error' ) return null;
     return ['term_id' => 404, 'slug' => $slug, 'name' => ucfirst( $slug ), 'taxonomy' => $tax];
 }
 function wp_update_term($id, $tax, $args)
