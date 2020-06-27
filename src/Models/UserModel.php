@@ -99,10 +99,12 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
     /**
      * Deletes user.
      * @since 1.0.0
+     * 
+     * @return bool
      */
     public function delete()
     {
-        // TODO
+        return $this->ID ? wp_delete_user( $this->ID ) : false;
     }
     /**
      * Saves user.

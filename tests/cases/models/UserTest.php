@@ -133,7 +133,7 @@ class UserTest extends MVCTestCase
         $this->assertNotEmpty($wp_user->roles);
     }
     /**
-     * Tests user inserts.
+     * Tests user insert.
      * @group models
      * @group user
      */
@@ -145,9 +145,8 @@ class UserTest extends MVCTestCase
         $user->user_login = 'tester';
         $user->user_email = 'tester@test.test';
         $inserted = $user->save();
-        // Check sent daa
-        global $data;
         // Assert
+        global $data;
         $this->assertInternalType('bool', $inserted);
         $this->assertTrue($inserted);
         $this->assertEquals(707, $user->ID);
@@ -156,7 +155,7 @@ class UserTest extends MVCTestCase
         $this->assertEquals('tester@test.test', $data['user_email']);
     }
     /**
-     * Tests user inserts.
+     * Tests user update.
      * @group models
      * @group user
      */
@@ -173,9 +172,8 @@ class UserTest extends MVCTestCase
         $user->user_login = 'tester2';
         $user->email = 'tester2@test.test';
         $updated = $user->save();
-        // Check sent daa
-        global $data;
         // Assert
+        global $data;
         $this->assertInternalType('bool', $updated);
         $this->assertTrue($updated);
         $this->assertEquals(777, $user->ID);
@@ -185,5 +183,38 @@ class UserTest extends MVCTestCase
         $this->assertArrayNotHasKey('user_login', $data);
         $this->assertEquals(777, $data['ID']);
         $this->assertEquals('tester2@test.test', $data['user_email']);
+    }
+    /**
+     * Tests user delete.
+     * @group models
+     * @group user
+     */
+    public function testUserDelete()
+    {
+        // Prepare
+        $user = new User(777);
+        // Run
+        $deleted = $user->delete();
+        // Assert
+        global $data;
+        $this->assertInternalType('bool', $deleted);
+        $this->assertTrue($deleted);
+        $this->assertEquals('wp_delete_user', $data['trigger']);
+        $this->assertEquals(777, $data['ID']);
+    }
+    /**
+     * Tests empty user delete attempt.
+     * @group models
+     * @group user
+     */
+    public function testEmptyUserDelete()
+    {
+        // Prepare
+        $user = new User;
+        // Run
+        $deleted = $user->delete();
+        // Assert
+        $this->assertInternalType('bool', $deleted);
+        $this->assertFalse($deleted);
     }
 }

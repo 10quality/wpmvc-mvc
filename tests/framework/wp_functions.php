@@ -89,6 +89,11 @@ function wp_update_user($data)
     $GLOBALS['data'] = $data;
     return true;
 }
+function wp_delete_user($id)
+{
+    $GLOBALS['data'] = ['trigger' => 'wp_delete_user', 'ID' => $id];
+    return true;
+}
 function is_wp_error($error)
 {
     return is_a($error, WP_Error::class);
