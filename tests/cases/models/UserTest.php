@@ -165,7 +165,9 @@ class UserTest extends MVCTestCase
         // Prepare
         $user = new User(777);
         $user->setAliases([
-            'email'  => 'user_email',
+            'email' => 'user_email',
+            'views' => 'meta_views',
+            'calc'  => 'func_calc',
         ]);
         // Run
         $user->user_login = 'tester2';
