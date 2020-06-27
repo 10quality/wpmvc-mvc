@@ -4,6 +4,7 @@ require_once __DIR__.'/classes/wp_user.php';
 require_once __DIR__.'/classes/wp_post.php';
 require_once __DIR__.'/classes/wp_term.php';
 require_once __DIR__.'/classes/wp_error.php';
+require_once __DIR__.'/classes/wp_comment.php';
 
 /**
  * WordPress compatibility functions.
@@ -205,4 +206,39 @@ function wp_update_term($id, $tax, $args)
 {
     $GLOBALS['data'] = $args;
     return $id;
+}
+function get_comment( $id, $output = false )
+{
+    if ( $id > 1000000 ) return null;
+    $comment = new WP_Comment($id);
+    return $output === ARRAY_A ? (array)$comment : $comment;
+}
+function wp_insert_comment($data)
+{
+    $data['trigger'] = 'wp_insert_comment';
+    $GLOBALS['data'] = $data;
+    return 101;
+}
+function wp_update_comment($data)
+{
+    $data['trigger'] = 'wp_update_comment';
+    $GLOBALS['data'] = $data;
+    return true;
+}
+function wp_delete_comment($id)
+{
+    $GLOBALS['data'] = ['trigger' => 'wp_delete_comment', 'comment_ID' => $id];
+    return true;
+}
+function delete_comment_meta($ID, $key)
+{
+    return true;
+}
+function update_comment_meta($ID, $key, $value)
+{
+    return true;
+}
+function get_comment_meta($ID)
+{
+    return ['views' => 99];
 }
