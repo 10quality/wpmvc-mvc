@@ -2,6 +2,8 @@
 
 namespace WPMVC\MVC\Traits;
 
+use WPMVC\MVC\Collection as Collection;
+
 /**
  * Trait related to all find functionality of a model.
  *
@@ -32,12 +34,12 @@ trait FindTrait
      *
      * @param int $id Parent post ID.
      *
-     * @return array
+     * @return \WPMVC\MVC\Collection
      */
     public static function from( $id )
     {
         if ( empty( $id ) ) return;
-        $output = [];
+        $output = new Collection;
         $reference = new self();
         $results = get_children( array(
             'post_parent' => $id,
