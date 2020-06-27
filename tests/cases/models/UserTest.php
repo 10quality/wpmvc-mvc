@@ -78,8 +78,9 @@ class UserTest extends MVCTestCase
             'first_name',
             'last_name',
             'user_login',
+            'user_email',
         ]);
-        $this->assertEquals($user->to_array(), ['ID' => 404]);
+        $this->assertEquals(['ID' => 404], $user->to_array());
     }
     /**
      * Tests model casting to string / json.
@@ -95,6 +96,7 @@ class UserTest extends MVCTestCase
             'allcaps',
             'first_name',
             'last_name',
+            'user_email',
         ]);
         $this->assertEquals((string)$user, '{"ID":404,"user_login":"admin"}');
     }

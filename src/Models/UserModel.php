@@ -2,6 +2,7 @@
 
 namespace WPMVC\MVC\Models;
 
+use WP_User;
 use ReflectionClass;
 use WPMVC\MVC\Contracts\Modelable;
 use WPMVC\MVC\Contracts\Findable;
@@ -22,7 +23,7 @@ use WPMVC\MVC\Traits\ArrayCastTrait;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.1
+ * @version 2.1.11
  */
 abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stringable, Arrayable
 {
@@ -45,6 +46,12 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
      * @var array
      */
     protected $hidden = [];
+    /**
+     * WordPress user object.
+     * @since 2.1.11
+     * @var \WP_User|null
+     */
+    protected $__wp_user;
     /**
      * Flag that indicates if model should decode meta string values identified as JSON.
      * @since 2.1.1
@@ -74,6 +81,20 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
         return self::find( get_current_user_id() );
     }
     /**
+     * Returns self model loaded.
+     * @since 2.1.11
+     * 
+     * @param \WP_User $user
+     * 
+     * @return self
+     */
+    public static function from_user( WP_User $user )
+    {
+        $model = new self;
+        $model->load_user( $user );
+        return $model;
+    }
+    /**
      * Loads user data.
      * @since 1.0.0
      *
@@ -82,7 +103,25 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
     public function load( $id )
     {
         if ( ! empty( $id ) ) {
-            $this->attributes = (array)get_user_by( 'id', $id );
+            if ( !isset( $this->__wp_user ) )
+                $this->__wp_user = get_user_by( 'id', $id );
+            if ( $this->__wp_user ) {
+                $this->attributes = (array)$this->__wp_user->data;
+                $this->load_meta();
+            }
+        }
+    }
+    /**
+     * Loads model from a user object.
+     * @since 2.1.11
+     * 
+     * @param \WP_User $user
+     */
+    public function load_user( WP_User $user )
+    {
+        $this->__wp_user = $user;
+        if ( $this->__wp_user ) {
+            $this->attributes = (array)$this->__wp_user->data;
             $this->load_meta();
         }
     }
@@ -103,17 +142,27 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
      */
     public function save()
     {
-        $id = wp_insert_user( $this->attributes );
-        if ( is_wp_error( $id ) )
-            return false;
-        $this->ID = $id;
+        // Insert or update
+        if ( $this->ID === null ) {
+            $id = wp_insert_user( $this->attributes );
+            if ( is_wp_error( $id ) )
+                return false;
+            $this->ID = $id;
+        } else {
+            $aliases = array_filter( $this->aliases, function( $alias ) {
+                return strpos( $alias, 'meta_' ) === false && strpos( $alias, 'func_' ) === false;
+            } );
+            wp_update_user( array_filter( $this->attributes, function( $key ) use( &$aliases ) {
+                return $key === 'ID' || in_array( $key, $aliases );
+            }, ARRAY_FILTER_USE_KEY ) );
+        }
+        // Save meta
         $this->save_meta_all();
         return true;
     }
     /**
      * Loads user meta data.
      * @since 1.0.0
-     * @since 2.1.1 Uses WordPress serialization.
      */
     public function load_meta()
     {
@@ -132,6 +181,16 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
                 $this->meta[$key] = maybe_unserialize( $value );
             }
         }
+    }
+    /**
+     * Returns WordPress user object attached to model.
+     * @since 2.1.11
+     * 
+     * @return \WP_User|null
+     */
+    public function wp_user()
+    {
+        return isset( $this->__wp_user ) ? $this->__wp_user : null;
     }
     /**
      * Returns flag indicating if object has meta key.
@@ -183,8 +242,6 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
     /**
      * Either adds or updates a meta.
      * @since 1.0.0
-     * @since 2.1.1 Uses WordPress serialization.
-     * @since 2.1.2 Removed serialization, already done by WordPress.
      *
      * @param string $key   Key.
      * @param mixed  $value Value.

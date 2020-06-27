@@ -8,8 +8,11 @@ class WP_User extends stdClass
         $this->cap_key = 'manage_options';
         $this->roles = ['administrator'];
         $this->allcaps = $this->caps;
-        $this->first_name = 'John';
-        $this->last_name = 'Doe';
-        $this->user_login = 'admin';
+        $this->data = new stdClass;
+        $this->data->ID = $id;
+        $this->data->first_name = 'John';
+        $this->data->last_name = 'Doe';
+        $this->data->user_login = 'admin';
+        $this->data->user_email = 'admin@test.test';
     }
 }

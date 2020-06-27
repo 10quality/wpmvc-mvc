@@ -15,7 +15,7 @@ require_once __DIR__.'/classes/wp_error.php';
  * @package WPMVC\MVC
  * @version 2.1.5
  */
-
+$data = null;
 if (!defined('ARRAY_A'))
     define('ARRAY_A', true);
 if (!defined('DOING_AUTOSAVE'))
@@ -79,6 +79,11 @@ function update_user_meta($ID, $key, $value)
 }
 function wp_insert_user($data)
 {
+    return true;
+}
+function wp_update_user($data)
+{
+    $GLOBALS['data'] = $data;
     return true;
 }
 function is_wp_error($error)
