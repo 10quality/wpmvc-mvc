@@ -38,6 +38,7 @@ function get_user_by($key, $id)
 }
 function get_post($id, $output = ARRAY_A)
 {
+    if ( $id > 1000000 ) return null;
     $post = new WP_Post($id);
     return $output === ARRAY_A ? (array)$post : $post;
 }

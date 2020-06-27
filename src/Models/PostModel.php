@@ -157,8 +157,10 @@ abstract class PostModel implements Modelable, Findable, Metable, Parentable, Po
      */
     public function load_attributes( $attributes )
     {
-        $this->attributes = $attributes;
-        $this->load_meta();
+        if ( !empty( $attributes ) ) {
+            $this->attributes = $attributes;
+            $this->load_meta();
+        }
     }
     /**
      * Loads model from db.

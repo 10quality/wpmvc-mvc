@@ -6,7 +6,7 @@
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.10
+ * @version 2.1.11
  */
 class PostTest extends MVCTestCase
 {
@@ -289,5 +289,17 @@ class PostTest extends MVCTestCase
         $this->assertEquals(10, $post->ID);
         $this->assertEquals('Hello World 10', $post->post_title);
         $this->assertEquals('hello-world', $post->post_name);
+    }
+    /**
+     * Tests empty post.
+     * @group models
+     * @group posts
+     */
+    public function testNonExistant()
+    {
+        // Prepare and run
+        $model = Post::find(5000100);
+        // Assert
+        $this->assertNull($model);
     }
 }

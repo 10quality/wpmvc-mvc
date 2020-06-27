@@ -218,7 +218,7 @@ class UserTest extends MVCTestCase
         $this->assertFalse($deleted);
     }
     /**
-     * Tests empty user delete attempt.
+     * Tests empty user.
      * @group models
      * @group user
      */
