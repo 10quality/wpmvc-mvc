@@ -71,30 +71,6 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
         }
     }
     /**
-     * Returns current user.
-     * @since 1.0.0
-     *
-     * @return mixed
-     */
-    public static function current()
-    {
-        return self::find( get_current_user_id() );
-    }
-    /**
-     * Returns self model loaded.
-     * @since 2.1.11
-     * 
-     * @param \WP_User $user
-     * 
-     * @return self
-     */
-    public static function from_user( WP_User $user )
-    {
-        $model = new self;
-        $model->load_user( $user );
-        return $model;
-    }
-    /**
      * Loads user data.
      * @since 1.0.0
      *
@@ -103,12 +79,7 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
     public function load( $id )
     {
         if ( ! empty( $id ) ) {
-            if ( !isset( $this->__wp_user ) )
-                $this->__wp_user = get_user_by( 'id', $id );
-            if ( $this->__wp_user ) {
-                $this->attributes = (array)$this->__wp_user->data;
-                $this->load_meta();
-            }
+            $this->load_wp_user( get_user_by( 'id', $id ) );
         }
     }
     /**
@@ -117,7 +88,7 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
      * 
      * @param \WP_User $user
      */
-    public function load_user( WP_User $user )
+    public function load_wp_user( WP_User $user )
     {
         $this->__wp_user = $user;
         if ( $this->__wp_user ) {
@@ -152,9 +123,11 @@ abstract class UserModel implements Modelable, Findable, Metable, JSONable, Stri
             $aliases = array_filter( $this->aliases, function( $alias ) {
                 return strpos( $alias, 'meta_' ) === false && strpos( $alias, 'func_' ) === false;
             } );
-            wp_update_user( array_filter( $this->attributes, function( $key ) use( &$aliases ) {
+            $id = wp_update_user( array_filter( $this->attributes, function( $key ) use( &$aliases ) {
                 return $key === 'ID' || in_array( $key, $aliases );
             }, ARRAY_FILTER_USE_KEY ) );
+            if ( is_wp_error( $id ) )
+                return false;
         }
         // Save meta
         $this->save_meta_all();

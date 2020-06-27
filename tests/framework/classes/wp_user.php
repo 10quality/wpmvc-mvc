@@ -13,6 +13,6 @@ class WP_User extends stdClass
         $this->data->first_name = 'John';
         $this->data->last_name = 'Doe';
         $this->data->user_login = 'admin';
-        $this->data->user_email = 'admin@test.test';
+        $this->data->user_email = 'email.' . $id . '@test.test';
     }
 }

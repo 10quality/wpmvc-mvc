@@ -99,4 +99,89 @@ class UserTest extends MVCTestCase
         ]);
         $this->assertEquals('{"ID":404,"user_login":"admin"}', (string)$user);
     }
+    /**
+     * Tests loading model using a WP_User object.
+     * @group models
+     * @group user
+     */
+    public function testLoadFromWpUser()
+    {
+        // Prepare
+        $wp_user = new WP_User(123);
+        $user = new User;
+        // Run
+        $user->load_wp_user( $wp_user );
+        // Assert
+        $this->assertEquals(123, $user->ID);
+        $this->assertEquals('email.123@test.test', $user->user_email);
+    }
+    /**
+     * Tests return of WP_User.
+     * @group models
+     * @group user
+     */
+    public function testGetWpUser()
+    {
+        // Prepare
+        $user = User::find(56);
+        // Run
+        $wp_user = $user->wp_user();
+        // Assert
+        $this->assertInstanceOf(WP_User::class, $wp_user);
+        $this->assertEquals(56, $wp_user->ID);
+        $this->assertEquals('email.56@test.test', $wp_user->data->user_email);
+        $this->assertNotEmpty($wp_user->roles);
+    }
+    /**
+     * Tests user inserts.
+     * @group models
+     * @group user
+     */
+    public function testUserInsert()
+    {
+        // Prepare
+        $user = new User;
+        // Run
+        $user->user_login = 'tester';
+        $user->user_email = 'tester@test.test';
+        $inserted = $user->save();
+        // Check sent daa
+        global $data;
+        // Assert
+        $this->assertInternalType('bool', $inserted);
+        $this->assertTrue($inserted);
+        $this->assertEquals(707, $user->ID);
+        $this->assertEquals('wp_insert_user', $data['trigger']);
+        $this->assertEquals('tester', $data['user_login']);
+        $this->assertEquals('tester@test.test', $data['user_email']);
+    }
+    /**
+     * Tests user inserts.
+     * @group models
+     * @group user
+     */
+    public function testUserUpdate()
+    {
+        // Prepare
+        $user = new User(777);
+        $user->setAliases([
+            'email'  => 'user_email',
+        ]);
+        // Run
+        $user->user_login = 'tester2';
+        $user->email = 'tester2@test.test';
+        $updated = $user->save();
+        // Check sent daa
+        global $data;
+        // Assert
+        $this->assertInternalType('bool', $updated);
+        $this->assertTrue($updated);
+        $this->assertEquals(777, $user->ID);
+        $this->assertEquals('wp_update_user', $data['trigger']);
+        $this->assertArrayHasKey('user_email', $data);
+        $this->assertArrayHasKey('ID', $data);
+        $this->assertArrayNotHasKey('user_login', $data);
+        $this->assertEquals(777, $data['ID']);
+        $this->assertEquals('tester2@test.test', $data['user_email']);
+    }
 }

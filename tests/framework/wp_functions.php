@@ -79,11 +79,13 @@ function update_user_meta($ID, $key, $value)
 }
 function wp_insert_user($data)
 {
+    $data['trigger'] = 'wp_insert_user';
     $GLOBALS['data'] = $data;
-    return true;
+    return 707;
 }
 function wp_update_user($data)
 {
+    $data['trigger'] = 'wp_update_user';
     $GLOBALS['data'] = $data;
     return true;
 }
