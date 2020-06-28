@@ -6,7 +6,7 @@
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.7
+ * @version 2.1.11.1
  */
 class CategoryTest extends MVCTestCase
 {
@@ -93,5 +93,16 @@ class CategoryTest extends MVCTestCase
             'taxonomy',
         ]);
         $this->assertEquals((string)$category, '{"term_id":1,"slug":"category"}');
+    }
+    /**
+     * Tests that missing "has_trace" does not affect the models.
+     * @group models
+     * @group categories
+     */
+    public function testTracableBackwardsCompatibility()
+    {
+        $category = Category::find(5000100);
+        $this->assertNotNull($category);
+        $this->assertInstanceOf(Category::class, $category);
     }
 }

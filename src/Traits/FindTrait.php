@@ -11,7 +11,7 @@ use WPMVC\MVC\Collection as Collection;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.11
+ * @version 2.1.11.1
  */
 trait FindTrait
 {
@@ -26,6 +26,8 @@ trait FindTrait
     public static function find( $id = 0 )
     {
         $model = new self( $id );
+        if ( !method_exists( $model, 'has_trace' ) )
+            return $model;
         return $model->has_trace() ? $model : null;
     }
     /**

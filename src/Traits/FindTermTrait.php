@@ -11,7 +11,7 @@ use WPMVC\MVC\Collection as Collection;
  * @copyright 10 Quality Studio <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.11
+ * @version 2.1.11.1
  */
 trait FindTermTrait
 {
@@ -27,6 +27,8 @@ trait FindTermTrait
     public static function find( $id = 0, $taxonomy = null )
     {
         $model = new self( $taxonomy, $id );
+        if ( !method_exists( $model, 'has_trace' ) )
+            return $model;
         return $model->has_trace() ? $model : null;
     }
     /**
@@ -42,6 +44,8 @@ trait FindTermTrait
     {
         $model = new self( $taxonomy, 0 );
         $model->load_by_slug( $slug );
+        if ( !method_exists( $model, 'has_trace' ) )
+            return $model;
         return $model->has_trace() ? $model : null;
     }
     /**
