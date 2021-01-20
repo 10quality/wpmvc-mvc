@@ -24,6 +24,15 @@ use WPMVC\MVC\Traits\CastTrait;
 abstract class OptionModel implements Findable, Modelable, Arrayable, JSONable, Stringable, Traceable
 {
     use GenericModelTrait, AliasTrait, CastTrait;
+
+    /**
+     * Should this wp_option be autoloaded?
+     *
+     * @since 2.1.11.1
+     * @var boolean
+     */
+    protected $autoload = true;
+
     /**
      * Option prefix.
      * @since 1.0.0
@@ -83,7 +92,7 @@ abstract class OptionModel implements Findable, Modelable, Arrayable, JSONable, 
     {
         if ( ! $this->is_loaded() ) return false;
         $this->fill_defaults();
-        update_option( $this->prefix . $this->id, json_encode( $this->attributes ) );
+        update_option( $this->prefix . $this->id, json_encode( $this->attributes ), $this->autoload );
         return true;
     }
     /**
