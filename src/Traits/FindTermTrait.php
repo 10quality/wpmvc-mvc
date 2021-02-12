@@ -2,8 +2,6 @@
 
 namespace WPMVC\MVC\Traits;
 
-use WPMVC\MVC\Collection as Collection;
-
 /**
  * Trait related to all find functionality of a model.
  *
@@ -11,7 +9,7 @@ use WPMVC\MVC\Collection as Collection;
  * @copyright 10 Quality Studio <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.11.1
+ * @version 2.1.12
  */
 trait FindTermTrait
 {
@@ -58,7 +56,7 @@ trait FindTermTrait
      */
     public static function all( $taxonomy = null, $hide_empty = false )
     {
-        $output = new Collection;
+        $output = array();
         if ( empty( $taxonomy ) )
             $taxonomy = $this->model_taxonomy;
         $terms = get_terms( $taxonomy, ['hide_empty' => $hide_empty] );
