@@ -6,7 +6,8 @@
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
-         stopOnFailure="true">
+         stopOnFailure="true"
+         processIsolation="true">
     <testsuites>
         <testsuite name="WordPress MVC - MVC">
             <directory>./tests/cases/</directory>

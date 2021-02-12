@@ -17,6 +17,9 @@
         "php": ">=5.4.0"
     },
     "autoload": {
+        "files": [
+            "src/Lib/functions.php"
+        ],
         "psr-4": {
             "WPMVC\\MVC\\": "src"
         }

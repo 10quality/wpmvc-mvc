@@ -31,32 +31,33 @@ trait ArrayCastTrait
         foreach ($this->meta as $key => $value) {
             $alias = $this->get_alias('meta_' . $key);
             if ( $alias !=  'meta_' . $key) {
-                $output[$alias] = $value;
+                $output[$alias] = wpmvc_array_value($value);
             }
         }
+        unset($value);
+        unset($alias);
         // Functions
         foreach ($this->aliases as $alias => $property) {
             if ( preg_match( '/func_/', $property ) ) {
                 $function_name = preg_replace( '/func_/', '', $property );
-                $output[$alias] = $this->$function_name();
-                if ( is_object( $output[$alias] ) )
-                    $output[$alias] = method_exists( $output[$alias], 'to_array' ) ? $output[$alias]->to_array() : (array)$output[$alias];
+                $output[$alias] = wpmvc_array_value($this->$function_name());
             }
         }
+        unset($function_name);
         // Relationships
         foreach ( get_class_methods( $this ) as $method ) {
             if ( ! preg_match( '/_meta|to_|\_\_|load|save|delete|from|find|alias|get|set|has_|belongs/', $method )
                 && $this->$method !== null
             ) {
-                $output[$method] = $this->$method;
-                if ( is_object( $output[$method] ) )
-                    $output[$method] = method_exists( $output[$method], 'to_array' ) ? $output[$method]->to_array() : (array)$output[$method];
+                $output[$method] = wpmvc_array_value($this->$method);
             }
         }
+        unset($method);
         // Hidden
         foreach ( $this->hidden as $key ) {
             unset( $output[$key] );
         }
+        unset($key);
         return $output;
     }
     /**
