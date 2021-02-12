@@ -23,7 +23,7 @@ use WPMVC\MVC\Traits\ArrayCastTrait;
  * @copyright 10 Quality Studio <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.11
+ * @version 2.1.12
  */
 abstract class TermModel implements Modelable, Findable, Metable, JSONable, Stringable, Arrayable, Traceable
 {
@@ -97,6 +97,22 @@ abstract class TermModel implements Modelable, Findable, Metable, JSONable, Stri
     {
         if ( ! empty( $slug ) ) {
             $attributes = get_term_by( 'slug', $slug, $this->model_taxonomy, ARRAY_A );
+            if ( !is_wp_error( $attributes ) && !empty( $attributes ) ) {
+                $this->attributes = $attributes;
+                $this->load_meta();
+            }
+        }
+    }
+    /**
+     * Loads term data by term_taxonomy_id.
+     * @since 2.1.12
+     *
+     * @param int $term_taxonomy_id Term taxonomy ID.
+     */
+    public function load_by_id( $term_taxonomy_id )
+    {
+        if ( ! empty( $term_taxonomy_id ) ) {
+            $attributes = get_term_by( 'term_taxonomy_id', $term_taxonomy_id, $this->model_taxonomy, ARRAY_A );
             if ( !is_wp_error( $attributes ) && !empty( $attributes ) ) {
                 $this->attributes = $attributes;
                 $this->load_meta();
