@@ -11,7 +11,7 @@ use Exception;
  * @copyright 10Quality <http://www.10quality.com>
  * @license MIT
  * @package WPMVC\MVC
- * @version 2.1.5
+ * @version 2.1.12
  */
 class Engine
 {
@@ -42,7 +42,6 @@ class Engine
     /**
      * Default engine constructor.
      * @since 1.0.0
-     * @since 2.1.0 Added views_relative_path
      *
      * @param string $views_path              Primary path in which views are located.
      * @param string $controllers_path        Path in which controllers are located.
@@ -61,7 +60,6 @@ class Engine
      * Calls controller and function.
      * Echos return.
      * @since 1.0.0
-     * @since 1.0.3 Renamed to exec to run, for WP theme validation pass.
      *
      * @param string $controller_name Controller name and method. i.e. DealController@show
      */
@@ -75,7 +73,6 @@ class Engine
      * Calls controller and function. With arguments are passed by.
      * Echos return.
      * @since 1.0.2
-     * @since 1.0.3 Renamed to exec to run, for WP theme validation pass.
      *
      * @param string $controller_name Controller name and method. i.e. DealController@show
      * @param array  $args            Function args passed by. Arguments ready for call_user_func_array call.
@@ -88,7 +85,6 @@ class Engine
     /**
      * Returns controller results.
      * @since 1.0.0
-     * @since 1.0.3 Renamed to exec to run, for WP theme validation pass.
      *
      * @param string $controller_name Controller name and method. i.e. DealController@show
      *
@@ -104,7 +100,6 @@ class Engine
     /**
      * Returns controller results. With arguments are passed by.
      * @since 1.0.2
-     * @since 1.0.3 Renamed to exec to run, for WP theme validation pass.
      *
      * @param string $controller_name Controller name and method. i.e. DealController@show
      * @param array  $args            Function args passed by. Arguments ready for call_user_func_array call.
@@ -120,8 +115,6 @@ class Engine
      * runutes controller.
      * Returns result.
      * @since 1.0.0
-     * @since 1.0.3 Renamed to exec to run, for WP theme validation pass.
-     * @since 2.1.5 Buffer implemented.
      *
      * @param string $controller_name Controller name and method. i.e. DealController@show
      * @param array  $args            Controller parameters.
@@ -134,7 +127,7 @@ class Engine
             throw new Exception( sprintf( 'Controller action must be defined in %s.', $controller_name ) );
         }
         // Get controller
-        $classname = sprintf( $this->namespace . '\Controllers\%s', $compo[0]);
+        $classname = sprintf( $this->namespace . '\Controllers\%s', str_replace( '/', '\\', $compo[0] ) );
         if ( isset( static::$buffer[$this->namespace][$classname] ) ) {
             $controller = static::$buffer[$this->namespace][$classname]['o'];
             static::$buffer[$this->namespace][$classname]['t'] = 0;
