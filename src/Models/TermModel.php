@@ -167,7 +167,7 @@ abstract class TermModel implements Modelable, Findable, Metable, JSONable, Stri
      */
     public function save()
     {
-        $id = $this->term_id;
+        $return = null;
         $data = [];
         if ( $this->term_id ) {
             foreach ( $this->attributes as $key => $value ) {
@@ -175,18 +175,21 @@ abstract class TermModel implements Modelable, Findable, Metable, JSONable, Stri
                     continue;
                 $data[$key] = $value;
             }
-            $id = wp_update_term( $this->term_id, $this->model_taxonomy, $data );
+            $return = wp_update_term( $this->term_id, $this->model_taxonomy, $data );
         } else {
             foreach ( $this->attributes as $key => $value ) {
                 if ( $key === 'name' )
                     continue;
                 $data[$key] = $value;
             }
-            $id = wp_insert_term( $this->name, $this->model_taxonomy, $data );
+            $return = wp_insert_term( $this->name, $this->model_taxonomy, $data );
         }
-        if ( is_wp_error( $id ) )
+        if ( is_wp_error( $return ) )
             return false;
-        $this->term_id = $id;
+        if ( !empty( $return ) ) {
+            $this->term_id = $return['term_id'];
+            $this->term_taxonomy_id = $return['term_taxonomy_id'];
+        }
         $this->save_meta_all();
         return true;
     }

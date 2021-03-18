@@ -160,4 +160,24 @@ class TermTest extends MVCTestCase
         // Assert
         $this->assertNull($model);
     }
+    /**
+     * Tests term insert.
+     * @group models
+     * @group terms
+     */
+    public function testInsert()
+    {
+        // Prepare
+        $model = new Term;
+        $model->slug = 'Test';
+        // Run
+        $saved = $model->save();
+        // Assert
+        $this->assertTrue($saved);
+        $this->assertNotNull($model->term_id);
+        $this->assertNotNull($model->term_taxonomy_id);
+        $this->assertInternalType('int', $model->term_id );
+        $this->assertInternalType('int', $model->term_taxonomy_id );
+        $this->assertEquals($model->term_id, $model->term_taxonomy_id);
+    }
 }

@@ -139,7 +139,8 @@ function get_term_meta($ID, $key = '', $row = true)
 }
 function wp_insert_term($name, $tax, $args)
 {
-    return rand();
+    $id = rand();
+    return ['term_id' => $id, 'term_taxonomy_id' => $id];
 }
 function wp_delete_term($term, $tax)
 {
@@ -205,7 +206,7 @@ function get_term_by( $prop, $slug, $tax )
 function wp_update_term($id, $tax, $args)
 {
     $GLOBALS['data'] = $args;
-    return $id;
+    return ['term_id' => $id, 'term_taxonomy_id' => $id];
 }
 function get_comment( $id, $output = false )
 {
