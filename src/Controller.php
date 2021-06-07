@@ -22,7 +22,7 @@ abstract class Controller
     /**
      * View class object.
      * @since 1.0.0
-     * @var object
+     * @var View
      */
     protected $view;
     /**
